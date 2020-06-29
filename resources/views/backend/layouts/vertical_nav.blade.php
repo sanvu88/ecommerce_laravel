@@ -24,6 +24,27 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#products_drp">
+                        <i class="linea-icon linea-basic" data-icon="t"></i>
+                        <span class="nav-link-text">Products</span>
+                    </a>
+                    <ul id="products_drp" class="nav flex-column collapse collapse-level-1">
+                        <li class="nav-item">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('products.index') }}">Listing</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('products.create') }}">Create</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Trashed</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

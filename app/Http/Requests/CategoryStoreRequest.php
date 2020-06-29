@@ -25,7 +25,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'slug' => 'required|unique:categories,slug',
+            'slug' => 'required|unique:categories,slug|max:255',
             'description' => 'max:255'
         ];
     }

@@ -21,7 +21,7 @@
         <div class="hk-pg-header">
             <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>List Category</h4>
             <div class="d-flex">
-                <a href="{{ route('categories.create') }}" class="btn btn-outline-success"><i class="ion ion-md-add-circle-outline"></i> Create</a>
+                <a href="{{ route('products.create') }}" class="btn btn-outline-success"><i class="ion ion-md-add-circle-outline"></i> Create</a>
             </div>
         </div>
         <!-- /Title -->
@@ -40,32 +40,34 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Slug</th>
-                                        <th>Parent Category</th>
-                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th>Price</th>
                                         <th>Created at</th>
                                         <th>Updated at</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($categories as $index => $category)
+                                    @foreach($products as $index => $product)
                                         <tr>
-                                            <td>{{ $category->id }}</td>
-                                            <td>{{ $category->name }}</td>
-                                            <td>{{ $category->slug }}</td>
-                                            <td>{{ $category->parent_name }}</td>
-                                            <td>{{ $category->description }}</td>
-                                            <td>{{ $category->created_at }}</td>
-                                            <td>{{ $category->updated_at }}</td>
+                                            <td>{{ $product->id }}</td>
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->slug }}</td>
+                                            <td>{{ $product->category->name }}</td>
+                                            <td>{{ $product->status }}</td>
+                                            <td>{{ $product->price }}</td>
+                                            <td>{{ $product->created_at }}</td>
+                                            <td>{{ $product->updated_at }}</td>
                                             <td>
-                                                <a href="{{ route('categories.edit', ['category' => $category->id]) }}" class="mr-25"> <i class="icon-pencil"></i> </a>
+                                                <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="mr-25"> <i class="icon-pencil"></i> </a>
                                                 <a href="#" data-toggle="modal" data-target="#delete_modal_{{ $index }}"> <i class="icon-trash txt-danger"></i> </a>
-                                                @include('backend.includes.modal_delete_confirm', ['index' => $index, 'item' => $category, 'type' => 'category'])
+                                                @include('backend.includes.modal_delete_confirm', ['index' => $index, 'item' => $product, 'type' => 'product'])
                                             </td>
                                         </tr>
                                     @endforeach
-                                    @if(!count($categories))
-                                        <td colspan="8" class="text-center"><h3><i class="linea-icon linea-basic" data-icon="f"></i></h3> No Data</td>
+                                    @if(!count($products))
+                                        <td colspan="9" class="text-center"><h3><i class="linea-icon linea-basic" data-icon="f"></i></h3> No Data</td>
                                     @endif
                                     </tbody>
                                     <tfoot class="thead-dark">
@@ -73,8 +75,9 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Slug</th>
-                                        <th>Parent Category</th>
-                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th>Price</th>
                                         <th>Created at</th>
                                         <th>Updated at</th>
                                         <th>Actions</th>

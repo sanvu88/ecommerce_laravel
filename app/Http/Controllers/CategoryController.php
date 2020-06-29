@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $allCategory = Category::with('children')->where('parent_id', '=', NULL)->get();
+        $allCategory = Category::with('children')->root()->get();
 
         return view('backend.category.create')->with('allCategory', $allCategory);
     }
@@ -65,7 +65,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $allCategory = Category::with('children')->where('parent_id', '=', NULL)->get();
+        $allCategory = Category::with('children')->root()->get();
 
         return view('backend.category.edit')
             ->with('category', $category)
