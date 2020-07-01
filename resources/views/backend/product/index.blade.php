@@ -11,7 +11,7 @@
     <nav class="hk-breadcrumb" aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-light bg-transparent">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Categories</li>
+            <li class="breadcrumb-item active" aria-current="page">Products</li>
         </ol>
     </nav>
     <!-- /Breadcrumb -->
@@ -19,7 +19,7 @@
     <div class="container-fluid px-xxl-65 px-xl-20">
         <!-- Title -->
         <div class="hk-pg-header">
-            <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>List Category</h4>
+            <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>List Product</h4>
             <div class="d-flex">
                 <a href="{{ route('products.create') }}" class="btn btn-outline-success"><i class="ion ion-md-add-circle-outline"></i> Create</a>
             </div>

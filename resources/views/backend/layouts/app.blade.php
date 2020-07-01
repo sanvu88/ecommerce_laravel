@@ -26,7 +26,7 @@
     <link href="{{ asset('backend/vendors/jquery-toggles/css/themes/toggles-light.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Morris Charts CSS -->
-    <link href="{{ asset('backend/vendors/morris.js/morris.css" rel="stylesheet') }}" type="text/css" />
+    <link href="{{ asset('backend/vendors/morris.js/morris.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Toastr CSS -->
     <link href="{{ asset('backend/vendors/jquery-toast-plugin/dist/jquery.toast.min.css') }}" rel="stylesheet" type="text/css">

@@ -53,7 +53,7 @@
                                     <div class="offset-2 col-md-6 mb-10">
                                         <label>Parent</label>
                                         <select class="form-control custom-select" name="parent_id">
-                                            <option value="0" selected>--- ROOT ---</option>
+                                            <option value="" selected>--- ROOT ---</option>
                                             @include('backend.includes.categories_options', ['categories' => $allCategory, 'dash' => '---', 'selected' => $category->parent_id])
                                         </select>
                                     </div>

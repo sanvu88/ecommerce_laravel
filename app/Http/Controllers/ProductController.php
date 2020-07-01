@@ -6,6 +6,7 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use League\Flysystem\Config;
 
 class ProductController extends Controller
 {
@@ -28,7 +29,10 @@ class ProductController extends Controller
     public function create()
     {
         $allCategory = Category::with('children')->root()->get();
-        return view('backend.product.create')->with('allCategory', $allCategory);
+        $allStatus = config('status.product');
+        return view('backend.product.create')
+            ->with('allCategory', $allCategory)
+            ->with('allStatus', $allStatus);
     }
 
     /**
@@ -64,10 +68,12 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $allCategory = Category::with('children')->root()->get();
+        $allStatus = config('status.product');
 
         return view('backend.product.edit')
             ->with('product', $product)
-            ->with('allCategory', $allCategory);
+            ->with('allCategory', $allCategory)
+            ->with('allStatus', $allStatus);
     }
 
     /**

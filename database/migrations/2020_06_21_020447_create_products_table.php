@@ -20,6 +20,8 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->longText('description')->nullable();
+            $table->longText('short_description')->nullable();
+            $table->double('promotion_price')->default(0);
             $table->double('price')->default(0);
             $table->string('status');
             $table->softDeletes();

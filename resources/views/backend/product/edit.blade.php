@@ -52,16 +52,24 @@
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
                                         <label>Category</label>
-                                        <select class="form-control custom-select" name="parent_id">
+                                        <select class="form-control custom-select" name="category_id">
                                             <option value="0" selected>--- ROOT ---</option>
-                                            @include('backend.includes.categories_options', ['categories' => $allCategory, 'dash' => '---', 'selected' => $product->category_id])
+                                            @include('backend.includes.categories_options', ['categories' => $allCategory, 'dash' => ' --- ', 'selected' => $product->category_id])
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
                                         <label>Status</label>
-                                        <input type="text" class="form-control" name="status" placeholder="Product status" value="{{ $product->status }}" required>
+                                        <select class="form-control custom-select" name="status">
+                                            @foreach($allStatus as $key => $status)
+                                                @if($key === $product->status)
+                                                    <option value="{{ $key }}" selected>{{ $status }}</option>
+                                                @else
+                                                    <option value="{{ $key }}">{{ $status }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -69,14 +77,31 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
+                                        <label>Short Description</label>
+                                        <textarea class="form-control" rows="3" name="short_description" placeholder="Write some description about the product">{{ $product->short_description }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="offset-2 col-md-6 mb-10">
                                         <label>Description</label>
-                                        <textarea class="form-control" rows="3" name="description" placeholder="Write some description about the product">{{ $product->description }}</textarea>
+                                        <div class="tinymce-wrap">
+                                            <textarea class="tinymce" rows="3" name="description">{{ $product->description }}</textarea>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
                                         <label>Price</label>
-                                        <input type="number" class="form-control" name="price" placeholder="Product status" value="{{ $product->price }}" required>
+                                        <input type="number" class="normal" name="price" min="1000" step="1000" value="{{ $product->price }}" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="offset-2 col-md-6 mb-10">
+                                        <label>Promotion Price</label>
+                                        <input type="number" class="normal" name="promotion_price" min="1000" step="1000" value="{{ $product->promotion_price }}" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -98,5 +123,15 @@
 @endsection
 
 @section('script')
+    <!-- Bootstrap Input spinner JavaScript -->
+    <script src="{{ asset('backend/vendors/bootstrap-input-spinner/src/bootstrap-input-spinner.js') }}"></script>
+    <script src="{{ asset('backend/dist/js/inputspinner-data.js') }}"></script>
+
+    <!-- Tinymce JavaScript -->
+    <script src="{{ asset('backend/vendors/tinymce/tinymce.min.js') }}"></script>
+
+    <!-- Tinymce Wysuhtml5 Init JavaScript -->
+    <script src="{{ asset('backend/dist/js/tinymce-data.js') }}"></script>
+
     <script src="{{ asset('backend/dist/js/validation-data.js') }}"></script>
 @endsection
