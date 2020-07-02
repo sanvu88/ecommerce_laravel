@@ -30,7 +30,6 @@
                             <form class="needs-validation" novalidate action="{{ route('categories.update', ['category' => $category->id]) }}" method="post">
                                 @method('PUT')
                                 {{ csrf_field() }}
-                                <input name="id" type="hidden" value="{{ $category->id }}">
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
                                         <label>Name</label>

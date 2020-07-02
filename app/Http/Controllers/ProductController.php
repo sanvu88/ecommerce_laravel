@@ -6,7 +6,7 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use League\Flysystem\Config;
+use App\Models\Tag;
 
 class ProductController extends Controller
 {
@@ -43,7 +43,13 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-        Product::create($request->all());
+        $product = Product::create($request->except(['tags']));
+        $tags = $request->get('tags');
+        foreach ($tags as $tag) {
+            Tag::firstOrCreate(['name' => $tag]);
+        }
+        $tagIds = Tag::whereIn('name', $tags)->get(['id'])->pluck('id')->all();
+        $product->tags()->sync($tagIds);
 
         return redirect(route('products.index'))->with('success', 'You have successfully created a new product');
     }
@@ -85,7 +91,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all());
+        $product->update($request->except(['tags']));
+
+        $tags = $request->get('tags');
+        foreach ($tags as $tag) {
+            Tag::firstOrCreate(['name' => $tag]);
+        }
+        $tagIds = Tag::whereIn('name', $tags)->get(['id'])->pluck('id')->all();
+        $product->tags()->sync($tagIds);
 
         return redirect(route('products.index'))->with('success', 'You have successfully updated the product');
     }

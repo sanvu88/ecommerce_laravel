@@ -31,6 +31,15 @@
                                 {{ csrf_field() }}
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
+                                        <label>SKU</label>
+                                        <input type="text" class="form-control" name="sku" placeholder="Product name" value="" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="offset-2 col-md-6 mb-10">
                                         <label>Name</label>
                                         <input type="text" class="form-control" name="name" placeholder="Product name" value="" required>
                                         <div class="valid-feedback">
@@ -90,7 +99,7 @@
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
                                         <label>Price</label>
-                                        <input type="number" class="form-control" name="price" value="" required>
+                                        <input type="number" class="normal" name="price" min="1000" step="1000" value="1000" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -99,7 +108,17 @@
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
                                         <label>Promotion Price</label>
-                                        <input type="number" class="form-control" name="promotion_price" value="" required>
+                                        <input type="number" class="normal" name="promotion_price" min="1000" step="1000" value="1000" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="offset-2 col-md-6 mb-10">
+                                        <label>Tags</label>
+                                        <select id="input_tags" name="tags[]" class="form-control" multiple="multiple">
+                                        </select>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -120,7 +139,20 @@
     </div>
 @endsection
 
+@section('css')
+    <!-- select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('script')
+    <!-- Select2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="{{ asset('backend/dist/js/select2-data.js') }}"></script>
+
+    <!-- Bootstrap Input spinner JavaScript -->
+    <script src="{{ asset('backend/vendors/bootstrap-input-spinner/src/bootstrap-input-spinner.js') }}"></script>
+    <script src="{{ asset('backend/dist/js/inputspinner-data.js') }}"></script>
+
     <!-- Tinymce JavaScript -->
     <script src="{{ asset('backend/vendors/tinymce/tinymce.min.js') }}"></script>
 

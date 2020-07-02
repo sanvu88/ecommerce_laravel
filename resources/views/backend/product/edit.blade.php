@@ -30,7 +30,15 @@
                             <form class="needs-validation" novalidate action="{{ route('products.update', ['product' => $product->id]) }}" method="post">
                                 @method('PUT')
                                 {{ csrf_field() }}
-                                <input name="id" type="hidden" value="{{ $product->id }}">
+                                <div class="form-row">
+                                    <div class="offset-2 col-md-6 mb-10">
+                                        <label>SKU</label>
+                                        <input type="text" class="form-control" name="sku" placeholder="Product name" value="{{ $product->SKU }}" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
                                         <label>Name</label>
@@ -107,6 +115,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="offset-2 col-md-6 mb-10">
+                                        <label>Tags</label>
+                                        <select id="input_tags" name="tags[]" class="form-control" multiple="multiple">
+                                            @foreach($product->tags as $tag)
+                                                <option selected>{{ $tag->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="offset-2">
                                     <button class="btn btn-primary" type="submit">Update</button>
                                     <a href="{{ route('products.index') }}" class="btn btn-light">Cancel</a>
@@ -122,7 +143,16 @@
     </div>
 @endsection
 
+@section('css')
+    <!-- select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('script')
+    <!-- Select2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="{{ asset('backend/dist/js/select2-data.js') }}"></script>
+
     <!-- Bootstrap Input spinner JavaScript -->
     <script src="{{ asset('backend/vendors/bootstrap-input-spinner/src/bootstrap-input-spinner.js') }}"></script>
     <script src="{{ asset('backend/dist/js/inputspinner-data.js') }}"></script>

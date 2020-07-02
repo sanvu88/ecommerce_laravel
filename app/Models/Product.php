@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Relationship\ProductRelationship;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes;
+    use ProductRelationship,
+        SoftDeletes;
 
     protected $guarded = ['id'];
-
-    public function category()
-    {
-        return $this->belongsTo('App\Models\Category');
-    }
 }
