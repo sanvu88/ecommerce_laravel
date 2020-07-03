@@ -39,7 +39,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Slug</th>
+                                        <th>Thumbnail</th>
                                         <th>Category</th>
                                         <th>Status</th>
                                         <th>Price</th>
@@ -53,8 +53,8 @@
                                         <tr>
                                             <td>{{ $product->id }}</td>
                                             <td>{{ $product->name }}</td>
-                                            <td>{{ $product->slug }}</td>
-                                            <td>{{ $product->category->name }}</td>
+                                            <td><img src="{{ $product->thumbnail }}" class="img-fluid img-thumbnail" alt="img"></td>
+                                            <td>{{ $product->category_name }}</td>
                                             <td>{{ $product->status }}</td>
                                             <td>{{ $product->price }}</td>
                                             <td>{{ $product->created_at }}</td>
@@ -74,7 +74,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Slug</th>
+                                        <th>Thumbnail</th>
                                         <th>Category</th>
                                         <th>Status</th>
                                         <th>Price</th>

@@ -13,4 +13,9 @@ trait ProductRelationship
     {
         return $this->morphToMany('App\Models\Tag', 'taggable');
     }
+
+    public function images()
+    {
+        return $this->morphToMany('App\Models\Image', 'imageable');
+    }
 }

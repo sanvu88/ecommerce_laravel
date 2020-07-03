@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -43,13 +44,26 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-        $product = Product::create($request->except(['tags']));
-        $tags = $request->get('tags');
+        $product = Product::create($request->except(['tags', 'thumbnail', 'images']));
+
+        // Sync tags
+        $tags = (array) $request->get('tags');
         foreach ($tags as $tag) {
             Tag::firstOrCreate(['name' => $tag]);
         }
         $tagIds = Tag::whereIn('name', $tags)->get(['id'])->pluck('id')->all();
         $product->tags()->sync($tagIds);
+
+        // Add thumbnail
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->thumbnail;
+            $thumbnailName = 'thumbnail_' . $product->sku . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $thumbnailPath = 'images/product/' . $product->sku . '/thumbnail';
+            $file->storeAs($thumbnailPath, $thumbnailName);
+            $product->thumbnail_filename = $thumbnailName;
+            $product->thumbnail_path = $thumbnailPath;
+            $product->save();
+        }
 
         return redirect(route('products.index'))->with('success', 'You have successfully created a new product');
     }
