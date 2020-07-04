@@ -166,6 +166,7 @@
                                     <a href="{{ route('products.index') }}" class="btn btn-light">CANCEL</a>
                                     <button class="btn btn-primary" type="submit">CREATE</button>
                                 </div>
+                                <input type="file" name="images[]" multiple class="d-none">
                             </form>
                         </div>
                     </div>
@@ -211,9 +212,45 @@
 
     <!-- Form Flie Upload Data JavaScript -->
     <script>
-        $("div#remove_link").dropzone({ url: "{{  route('products.store') }}" });
         $(document).ready(function() {
             $('.dropify').dropify();
+        });
+
+        Dropzone.autoDiscover = false;
+        $("div#remove_link").dropzone({
+            url: "#",
+            autoProcessQueue: false,
+            addRemoveLinks: true,
+            dictDuplicateFile: "Duplicate Files Cannot Be Uploaded",
+            preventDuplicates: true,
+            init: function () {
+                this.on("addedfile", function (file) {
+                    $('.dz-progress').hide();
+                    if (this.files.length) {
+                        var _i, _len;
+                        for (_i = 0, _len = this.files.length; _i < _len - 1; _i++) // -1 to exclude current file
+                        {
+                            if (this.files[_i].name === file.name && this.files[_i].size === file.size && this.files[_i].lastModified.toString() === file.lastModified.toString()) {
+                                this.removeFile(file);
+                            }
+                        }
+                    }
+                    setTimeout(() => {
+                        var fileList = new DataTransfer();
+                        this.files.forEach((file) => {
+                            fileList.items.add(file);
+                        });
+                        document.querySelectorAll('input[name="images[]"]')[0].files = fileList.files;
+                    }, 0);
+                });
+                this.on("removedfile", function (file) {
+                    var fileList = new DataTransfer();
+                    this.files.forEach((file) => {
+                        fileList.items.add(file);
+                    });
+                    document.querySelectorAll('input[name="images[]"]')[0].files = fileList.files;
+                })
+            },
         });
     </script>
 

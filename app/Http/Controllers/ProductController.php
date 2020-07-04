@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
+use App\Models\Image;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -42,7 +44,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(ProductStoreRequest $request)
+    public function store(Request $request)
     {
         $product = Product::create($request->except(['tags', 'thumbnail', 'images']));
 
@@ -63,6 +65,27 @@ class ProductController extends Controller
             $product->thumbnail_filename = $thumbnailName;
             $product->thumbnail_path = $thumbnailPath;
             $product->save();
+        }
+
+        // Add images
+        if ($request->hasFile('images')) {
+            $files = $request->images;
+            $imageIds = [];
+            foreach ($files as $file) {
+                $imageName = 'image_' . $product->sku . '_' . md5(time().Str::random(10)) . '.' . $file->getClientOriginalExtension();
+                $imagePath = 'images/product/' . $product->sku . '/image';
+                $file->storeAs($imagePath, $imageName);
+                [$width, $height] = getimagesize($file);
+                $image = Image::create([
+                    'filename' => $imageName,
+                    'path' => $imagePath,
+                    'width' => $width,
+                    'height' => $height,
+                    'size' => $file->getSize()
+                ]);
+                array_push($imageIds, $image->id);
+            }
+            $product->images()->sync($imageIds);
         }
 
         return redirect(route('products.index'))->with('success', 'You have successfully created a new product');
