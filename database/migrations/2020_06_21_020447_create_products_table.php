@@ -28,6 +28,8 @@ class CreateProductsTable extends Migration
             $table->integer('amount')->default(0);
             $table->string('thumbnail_path')->nullable();
             $table->string('thumbnail_filename')->nullable();
+            $table->string('manufacturer')->nullable();
+            $table->string('unit_type')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

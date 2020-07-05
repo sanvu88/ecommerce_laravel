@@ -31,25 +31,14 @@
                                 @method('PUT')
                                 {{ csrf_field() }}
                                 <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
-                                        <label>SKU</label>
-                                        <input type="text" class="form-control" name="sku" placeholder="Product name" value="{{ $product->SKU }}" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
+                                    <div class="col-md-6 mb-10">
                                         <label>Name</label>
                                         <input type="text" class="form-control" name="name" placeholder="Product name" value="{{ $product->name }}" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
+                                    <div class="col-md-6 mb-10">
                                         <label>Slug</label>
                                         <input type="text" class="form-control" name="slug" placeholder="Product slug" value="{{ $product->slug }}" required>
                                         <div class="valid-feedback">
@@ -58,7 +47,14 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
+                                    <div class="col-md-6 mb-10">
+                                        <label>SKU</label>
+                                        <input type="text" class="form-control" name="sku" placeholder="Product SKU" value="{{ $product->sku }}" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-10">
                                         <label>Category</label>
                                         <select class="form-control custom-select" name="category_id">
                                             <option value="0" selected>--- ROOT ---</option>
@@ -67,56 +63,93 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
-                                        <label>Status</label>
-                                        <select class="form-control custom-select" name="status">
-                                            @foreach($allStatus as $key => $status)
-                                                @if($key === $product->status)
-                                                    <option value="{{ $key }}" selected>{{ $status }}</option>
-                                                @else
-                                                    <option value="{{ $key }}">{{ $status }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        <div class="valid-feedback">
-                                            Looks good!
+                                    <div class="col-md-8 mb-10">
+                                        <div class="form-row">
+                                            <div class="col-md">
+                                                <label>Short Description</label>
+                                                <div class="tinymce-wrap">
+                                                    <textarea class="tinymce" rows="3" name="short_description" placeholder="Write some description about the product">{{ $product->short_description }}</textarea>
+                                                </div>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-10">
+                                        <div class="form-row">
+                                            <div class="col-md">
+                                                <input type="file" name="thumbnail" class="dropify" data-default-file="{{ asset($product->thumbnail) }}" />
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md">
+                                                <label>Status</label>
+                                                <select class="form-control custom-select" name="status">
+                                                    @foreach($allStatus as $key => $status)
+                                                        @if($key === $product->status)
+                                                            <option value="{{ $key }}" selected>{{ $status }}</option>
+                                                        @else
+                                                            <option value="{{ $key }}">{{ $status }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md">
+                                                <label>Price</label>
+                                                <input type="number" class="normal" name="price" min="1000" step="1000" value="{{ $product->price }}" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md">
+                                                <label>Promotion Price</label>
+                                                <input type="number" class="normal" name="promotion_price" min="1000" step="1000" value="{{ $product->promotion_price }}" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
-                                        <label>Short Description</label>
-                                        <textarea class="form-control" rows="3" name="short_description" placeholder="Write some description about the product">{{ $product->short_description }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
-                                        <label>Description</label>
+                                    <div class="col-md-12 mb-10">
+                                        <label>Long Description</label>
                                         <div class="tinymce-wrap">
-                                            <textarea class="tinymce" rows="3" name="description">{{ $product->description }}</textarea>
+                                            <textarea class="tinymce" rows="3" name="long_description">{{ $product->long_description }}</textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
-                                        <label>Price</label>
-                                        <input type="number" class="normal" name="price" min="1000" step="1000" value="{{ $product->price }}" required>
+                                    <div class="col-md-6 mb-10">
+                                        <label>Manufacturer</label>
+                                        <input type="text" class="form-control" name="manufacturer" placeholder="Product Manufacturer" value="{{ $product->manufacturer }}" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-10">
+                                        <label>Amount</label>
+                                        <input type="number" class="normal" name="amount" min="0" step="1" value="{{ $product->amount }}" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
-                                        <label>Promotion Price</label>
-                                        <input type="number" class="normal" name="promotion_price" min="1000" step="1000" value="{{ $product->promotion_price }}" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
+                                    <div class="col-md-12 mb-10">
                                         <label>Tags</label>
                                         <select id="input_tags" name="tags[]" class="form-control" multiple="multiple">
                                             @foreach($product->tags as $tag)
@@ -128,9 +161,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="offset-2">
-                                    <button class="btn btn-primary" type="submit">Update</button>
-                                    <a href="{{ route('products.index') }}" class="btn btn-light">Cancel</a>
+                                <div class="float-right">
+                                    <a href="{{ route('products.index') }}" class="btn btn-light">CANCEL</a>
+                                    <button class="btn btn-primary" type="submit">UPDATE</button>
                                 </div>
                             </form>
                         </div>
@@ -146,6 +179,12 @@
 @section('css')
     <!-- select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Dropzone CSS -->
+    <link href="{{ asset('backend/vendors/dropzone/dist/dropzone.css') }}" rel="stylesheet" type="text/css"/>
+
+    <!-- Bootstrap Dropify CSS -->
+    <link href="{{ asset('backend/vendors/dropify/dist/css/dropify.min.css') }}" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('script')
@@ -162,6 +201,16 @@
 
     <!-- Tinymce Wysuhtml5 Init JavaScript -->
     <script src="{{ asset('backend/dist/js/tinymce-data.js') }}"></script>
+
+    <!-- Dropify JavaScript -->
+    <script src="{{ asset('backend/vendors/dropify/dist/js/dropify.min.js') }}"></script>
+
+    <!-- Form Flie Upload Data JavaScript -->
+    <script>
+        $(document).ready(function() {
+            $('.dropify').dropify();
+        });
+    </script>
 
     <script src="{{ asset('backend/dist/js/validation-data.js') }}"></script>
 @endsection

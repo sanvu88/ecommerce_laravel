@@ -48,7 +48,7 @@
                                 <div class="form-row">
                                     <div class="col-md-6 mb-10">
                                         <label>SKU</label>
-                                        <input type="text" class="form-control" name="sku" placeholder="Product name" value="" required>
+                                        <input type="text" class="form-control" name="sku" placeholder="Product SKU" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -146,17 +146,26 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-8 mb-10">
-                                        <label>Tags</label>
-                                        <select id="input_tags" name="tags[]" class="form-control" multiple="multiple">
-                                        </select>
+                                    <div class="col-md-6 mb-10">
+                                        <label>Manufacturer</label>
+                                        <input type="text" class="form-control" name="manufacturer" placeholder="Product Manufacturer" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-10">
+                                    <div class="col-md-6 mb-10">
                                         <label>Amount</label>
                                         <input type="number" class="normal" name="amount" min="0" step="1" value="0" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-10">
+                                        <label>Tags</label>
+                                        <select id="input_tags" name="tags[]" class="form-control" multiple="multiple">
+                                        </select>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>

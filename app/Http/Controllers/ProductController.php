@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Image;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Models\Tag;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -32,7 +31,7 @@ class ProductController extends Controller
     public function create()
     {
         $allCategory = Category::with('children')->root()->get();
-        $allStatus = config('status.product');
+        $allStatus = config('common.product.status');
         return view('backend.product.create')
             ->with('allCategory', $allCategory)
             ->with('allStatus', $allStatus);
@@ -44,7 +43,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
         $product = Product::create($request->except(['tags', 'thumbnail', 'images']));
 
@@ -111,7 +110,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $allCategory = Category::with('children')->root()->get();
-        $allStatus = config('status.product');
+        $allStatus = config('common.product.status');
 
         return view('backend.product.edit')
             ->with('product', $product)
@@ -126,16 +125,28 @@ class ProductController extends Controller
      * @param \App\Models\Product $product
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
-        $product->update($request->except(['tags']));
+        $product->update($request->except(['tags', 'thumbnail']));
 
+        // Sync Tags
         $tags = $request->get('tags');
         foreach ($tags as $tag) {
             Tag::firstOrCreate(['name' => $tag]);
         }
         $tagIds = Tag::whereIn('name', $tags)->get(['id'])->pluck('id')->all();
         $product->tags()->sync($tagIds);
+
+        // update thumbnail
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->thumbnail;
+            $thumbnailName = 'thumbnail_' . $product->sku . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $thumbnailPath = 'images/product/' . $product->sku . '/thumbnail';
+            $file->storeAs($thumbnailPath, $thumbnailName);
+            $product->thumbnail_filename = $thumbnailName;
+            $product->thumbnail_path = $thumbnailPath;
+            $product->save();
+        }
 
         return redirect(route('products.index'))->with('success', 'You have successfully updated the product');
     }

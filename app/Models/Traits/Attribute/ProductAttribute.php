@@ -17,4 +17,9 @@ trait ProductAttribute
     {
         return asset(Storage::url($this->thumbnail_path . '/' . $this->thumbnail_filename));
     }
+
+    public function getStatusNameAttribute()
+    {
+        return config('common.product.status')[$this->status];
+    }
 }

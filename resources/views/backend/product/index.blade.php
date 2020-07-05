@@ -53,9 +53,9 @@
                                         <tr>
                                             <td>{{ $product->id }}</td>
                                             <td>{{ $product->name }}</td>
-                                            <td><img src="{{ $product->thumbnail }}" class="img-fluid img-thumbnail" alt="img"></td>
+                                            <td><img src="{{ $product->thumbnail }}" class="img-fluid img-thumbnail" height="100" width="100" alt="img"></td>
                                             <td>{{ $product->category_name }}</td>
-                                            <td>{{ $product->status }}</td>
+                                            <td>{{ $product->status_name }}</td>
                                             <td>{{ $product->price }}</td>
                                             <td>{{ $product->created_at }}</td>
                                             <td>{{ $product->updated_at }}</td>
