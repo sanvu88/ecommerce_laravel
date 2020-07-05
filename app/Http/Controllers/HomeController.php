@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,6 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('frontend.home');
+        $categories = Category::with('children')->root()->get();
+        return view('frontend.home')
+            ->with('categories', $categories);
     }
 }

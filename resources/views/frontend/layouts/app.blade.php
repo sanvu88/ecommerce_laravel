@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/themify-icons/themify-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/vrsg.css') }}">
+    @yield('css')
 </head>
 <body>
     @yield('content')
@@ -27,5 +28,6 @@
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/js/slick.js') }}"></script>
     <script src="{{ asset('frontend/js/vrsg.js') }}"></script>
+    @yield('script')
 </body>
 </html>

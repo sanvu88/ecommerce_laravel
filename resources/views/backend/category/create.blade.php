@@ -32,7 +32,7 @@
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
                                         <label>Name</label>
-                                        <input type="text" class="form-control" name="name" placeholder="Category name" value="" required>
+                                        <input id="name" type="text" class="form-control" name="name" placeholder="Category name" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -41,7 +41,7 @@
                                 <div class="form-row">
                                     <div class="offset-2 col-md-6 mb-10">
                                         <label>Slug</label>
-                                        <input type="text" class="form-control" name="slug" placeholder="Category slug" value="" required>
+                                        <input id="slug" type="text" class="form-control" name="slug" placeholder="Category slug" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -78,5 +78,12 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('backend/dist/js/slugify.js') }}"></script>
+    <script>
+        let inputName = document.getElementById('name');
+        inputName.onchange = function(){
+            document.getElementById('slug').value = slugify(document.getElementById('name').value);
+        }
+    </script>
     <script src="{{ asset('backend/dist/js/validation-data.js') }}"></script>
 @endsection

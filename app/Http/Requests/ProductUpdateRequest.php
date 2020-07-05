@@ -24,9 +24,9 @@ class ProductUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'sku' => 'required|unique:products,sku,' . $this->sku . '|max:20',
+            'sku' => 'required|unique:products,sku,' . $this->id . '|max:20',
             'name' => 'required|max:255',
-            'slug' => 'required|unique:products,slug,' . $this->slug . '|max:255',
+            'slug' => 'required|unique:products,slug,' . $this->id . '|max:255',
             'price' => 'required|numeric',
             'promotion_price' => 'required|numeric',
             'amount' => 'numeric',
