@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('children')->root()->get();
+        $categories = Category::with(['children', 'products'])->root()->get();
         return view('frontend.home')
             ->with('categories', $categories);
     }

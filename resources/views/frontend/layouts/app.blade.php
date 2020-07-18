@@ -21,7 +21,12 @@
     @yield('css')
 </head>
 <body>
+    @include('frontend.layouts.header')
+
     @yield('content')
+
+    @include('frontend.layouts.footer')
+    <div class="backtotop"><i class="ti-angle-double-up"></i></div>
 
     <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/popper.min.js"></script>
