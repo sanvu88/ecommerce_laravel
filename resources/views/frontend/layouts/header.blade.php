@@ -17,7 +17,7 @@
                 </div>
                 <div class="col col-md-auto">
                     <div class="logo">
-                        <a href="#"><img src="{{ asset('frontend/images/logo.png') }}" alt=""></a>
+                        <a href="/"><img src="{{ asset('frontend/images/logo.png') }}" alt=""></a>
                     </div>
                 </div>
                 <div class="col header-right">

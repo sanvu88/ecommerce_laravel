@@ -20,4 +20,9 @@ trait CategoryRelationship
     {
         return $this->hasMany('App\Models\Product');
     }
+
+    public function subProducts()
+    {
+        return $this->hasManyThrough('App\Models\Product', 'App\Models\Category', 'parent_id', 'category_id', 'id');
+    }
 }

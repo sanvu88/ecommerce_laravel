@@ -19,3 +19,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController');
 });
+
+Route::group(['prefix' => 'cart'], function () {
+    Route::get('/', 'CartController@index');
+    Route::get('/checkout', 'CartController@checkout');
+    Route::get('/{id}', 'CartController@add');
+});

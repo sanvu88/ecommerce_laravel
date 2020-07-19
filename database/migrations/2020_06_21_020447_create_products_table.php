@@ -15,9 +15,9 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('sku')->unique();
+            $table->string('sku');
             $table->string('name');
-            $table->string('slug')->unique()->index();
+            $table->string('slug')->index();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->longText('short_description')->nullable();

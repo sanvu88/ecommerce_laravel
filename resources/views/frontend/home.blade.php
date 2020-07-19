@@ -34,7 +34,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        @foreach($category->products as $product)
+                        @foreach($category->products->take(5) as $product)
                             <div class="item-product">
                                 <a href="#">
                                     <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->slug }}">
