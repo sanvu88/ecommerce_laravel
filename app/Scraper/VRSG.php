@@ -120,7 +120,6 @@ class VRSG
             'sku' => $sku,
             'name' => $name,
             'slug' => Str::slug($name),
-            'category_id' => isset($category) ? $category->id : null,
             'short_description' => $shortDescription,
             'long_description' => $longDescription,
             'promotion_price' => (float)$promotionPrice,
@@ -130,6 +129,13 @@ class VRSG
             'thumbnail_filename' => $thumbnailName,
             'thumbnail_path' => $thumbnailPath,
         ]);
+        if (isset($category)) {
+            $category->products()->attach($product->id);
+            if (isset($category->parent)) {
+                $category->parent->products()->attach($product->id);
+            }
+        }
+
         return $product;
     }
 

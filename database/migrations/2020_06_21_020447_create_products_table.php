@@ -18,8 +18,6 @@ class CreateProductsTable extends Migration
             $table->string('sku');
             $table->string('name');
             $table->string('slug')->index();
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->longText('short_description')->nullable();
             $table->longText('long_description')->nullable();
             $table->double('promotion_price')->default(0);

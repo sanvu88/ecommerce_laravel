@@ -18,11 +18,6 @@ trait CategoryRelationship
 
     public function products()
     {
-        return $this->hasMany('App\Models\Product');
-    }
-
-    public function subProducts()
-    {
-        return $this->hasManyThrough('App\Models\Product', 'App\Models\Category', 'parent_id', 'category_id', 'id');
+        return $this->belongsToMany('App\Models\Product', 'product_category');
     }
 }
