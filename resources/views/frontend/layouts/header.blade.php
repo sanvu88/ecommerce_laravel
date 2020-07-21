@@ -7,8 +7,7 @@
                         <li class="has-child">
                             <a href="#">Sản phẩm</a>
                             <ul class="sub-ul-menu">
-
-                                @include('frontend.includes.categories_menu', ['categories' => $categories])
+                                @include('frontend.includes.categories_top_menu', ['categories' => $categories])
                             </ul>
                         </li>
                         <li><a href="#">Tin tức</a></li>

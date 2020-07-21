@@ -15,6 +15,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{slug}', 'HomeController@showCategory')->name('category');
+Route::get('/products/{slug}', 'HomeController@showProduct')->name('product');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::resource('categories', 'CategoryController');

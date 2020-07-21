@@ -15,10 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::with(['children', 'products'])->root()->get();
+        $categories = Category::with(['products'])->root()->get();
 
-        return view('frontend.home')
-            ->with('categories', $categories);
+        return view('frontend.home')->with('categories', $categories);
     }
 
     /**
@@ -30,12 +29,24 @@ class HomeController extends Controller
      */
     public function showCategory(Request $request, $slug)
     {
-        $categories = Category::with(['children'])->root()->get();
         $category = Category::where('slug', '=', $slug)->first(['id', 'name']);
         $products = $category->products()->paginate(10);
         return view('frontend.category')
-            ->with('categories', $categories)
             ->with('category', $category)
             ->with('products', $products);
+    }
+
+    /**
+     * Show the product page
+     *
+     * @param Request $request
+     * @param $slug
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showProduct(Request $request, $slug)
+    {
+        $product = Product::where('slug', '=', $slug)->first();
+
+        return view('frontend.product')->with('product', $product);
     }
 }

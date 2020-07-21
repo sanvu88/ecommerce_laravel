@@ -30,13 +30,13 @@
         <section>
             <div class="container section--default">
                 <div class="section-title">
-                    <h2>{{ $category->name }} <a href="#" class="float-right color--link">Xem tất cả</a></h2>
+                    <h2>{{ $category->name }} <a href="{{ route('category', ['slug' => $category->slug]) }}" class="float-right color--link">Xem tất cả</a></h2>
                 </div>
                 <div class="row">
                     <div class="col-12">
                         @foreach($category->products->take(5) as $product)
                             <div class="item-product">
-                                <a href="#">
+                                <a href="{{ route('product', ['slug' => $product->slug]) }}">
                                     <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->slug }}">
                                 </a>
                                 <a href="#" class="item-title">{{ $product->name }}</a>
@@ -57,5 +57,4 @@
             </div>
         </section>
     @endforeach
-
 @endsection
