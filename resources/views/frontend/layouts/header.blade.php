@@ -57,8 +57,10 @@
                             </div>
                         </div>
                         <div class="search">
-                            <input type="text" placeholder="Tìm kiếm ...">
-                            <button><span class="ti-search"></span></button>
+                            <form action="{{ route('search') }}" method="get">
+                                <input type="text" name="query" placeholder="Tìm kiếm ...">
+                                <button><span class="ti-search"></span></button>
+                            </form>
                         </div>
                     </div>
                 </div>

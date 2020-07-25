@@ -13,4 +13,5 @@ return [
 
         ],
     ],
+    'pagination' => 12
 ];

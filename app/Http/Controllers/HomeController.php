@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function showCategory(Request $request, $slug)
     {
         $category = Category::where('slug', '=', $slug)->first(['id', 'name']);
-        $products = $category->products()->paginate(10);
+        $products = $category->products()->paginate(config('common.pagination'));
         return view('frontend.category')
             ->with('category', $category)
             ->with('products', $products);
@@ -48,5 +48,20 @@ class HomeController extends Controller
         $product = Product::where('slug', '=', $slug)->first();
 
         return view('frontend.product')->with('product', $product);
+    }
+
+    /**
+     * Search products
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function search(Request $request)
+    {
+        $keyword = $request->get('query');
+
+        $products = Product::search($keyword)->paginate(config('common.pagination'));
+
+        return view('frontend.search')->with('products', $products);
     }
 }

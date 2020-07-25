@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         View::composer(
-            ['frontend.layouts.app', 'frontend.category'],
+            ['frontend.layouts.app', 'frontend.category', 'frontend.search'],
             'App\Http\View\Composers\Frontend\MenuComposer'
         );
     }

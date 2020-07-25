@@ -38,15 +38,7 @@
                         </div>
                         @endforeach
                     </div>
-                    <div class="pagination-style">
-                        <ul>
-                            <li><a class="active" href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">...</a></li>
-                            <li><a href="#">10</a></li>
-                        </ul>
-                        <p class="mb-0">Tất cả có 20 kết quả</p>
-                    </div>
+                    {{ $products->links('frontend.includes.pagination') }}
                 </div>
             </div>
         </div>
