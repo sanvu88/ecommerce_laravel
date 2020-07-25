@@ -12,26 +12,42 @@ class CartController extends Controller
     public function index()
     {
         $categories = Category::with(['children'])->root()->get();
-        $cart = Cart::content();
 
         return view('frontend.cart')
-            ->with('cart', $cart)
             ->with('categories', $categories);
     }
 
-    public function add(Request $request, $id)
+    /**
+     * Add product to cart
+     *
+     * @param Request $request
+     * @param $id
+     */
+    public function add(Request $request)
     {
-        $productId = $request->get('product_id');
+        $id = $request->get('id');
+        $qty = $request->get('qty') ?? 1;
+
         $product = Product::find($id);
         Cart::add([
             'id' => $id,
             'name' => $product->name,
-            'qty' => 1,
+            'qty' => $qty,
             'price' => $product->price,
             'weight' => 500,
             'options' => [
                 'img' => asset($product->thumbnail)
             ]
+        ]);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Add success',
+            'data' => [
+                'count' => Cart::count(),
+                'content' => Cart::content()->flatten(1)->all(),
+                'total' => Cart::total(),
+            ],
         ]);
     }
 

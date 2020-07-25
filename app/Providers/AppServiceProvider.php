@@ -18,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
             ['frontend.layouts.app', 'frontend.category', 'frontend.search'],
             'App\Http\View\Composers\Frontend\MenuComposer'
         );
+
+        View::composer(
+            ['frontend.includes.cart_menu', 'frontend.cart'],
+            'App\Http\View\Composers\Frontend\CartComposer'
+        );
     }
 
     /**

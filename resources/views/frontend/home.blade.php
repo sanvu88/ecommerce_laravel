@@ -44,7 +44,7 @@
                                     <del>{{ $product->price }} VND</del>
                                     <span class="price">{{ $product->promotion_price }} VND</span>
                                 </p>
-                                <button class="btn-default-solid">Chọn mua</button>
+                                <button class="btn-default-solid" onclick="addToCart({{$product->id}}, 1)">Chọn mua</button>
                                 <div class="wrap-group-number" style="display: none;">
                                     <button class="btn-plus"><i class="ti-plus"></i></button>
                                     <button class="btn-minus"><i class="ti-minus"></i></button>

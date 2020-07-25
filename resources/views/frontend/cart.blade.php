@@ -7,10 +7,10 @@
             <div class="row">
                 <div class="col-lg-8 col-sm-7 col-12 cart-left section--default">
                     <div class="section-title">
-                        <h2>Bạn có {{ $cart->count() }} sản phẩm </h2>
+                        <h2>Bạn có {{ $cart::count() }} sản phẩm </h2>
                     </div>
                     <div class="wrap-list-item">
-                        @foreach($cart as $product)
+                        @foreach($cart::content() as $product)
                             <div class="cart-item">
                             <div class="wrap-img-cart">
                                 <a href="#"><img src="{{ $product->options['img'] }}" alt=""></a>

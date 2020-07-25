@@ -33,6 +33,41 @@
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/js/slick.js') }}"></script>
     <script src="{{ asset('frontend/js/vrsg.js') }}"></script>
+
     @yield('script')
+
+    <script>
+        function addToCart(id, qty) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('cart.add') }}',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    qty: qty
+                }
+            }).then(function (res) {
+                $('#cart_qty').html(res.data.count);
+                $('#cart_content').html(function () {
+                    let html = '';
+                    res.data.content.forEach(function (e) {
+                       html = html +
+                           `<div class="item-view-cart">
+                                <div class="w-item-mini">
+                                    <img src="${e.options.img}" alt="">
+                                </div>
+                                <div class="content-text-item">
+                                    <a href="#">${e.name}</a>
+                                    <p>${e.qty} x ${e.price} VNĐ</p>
+                                </div>
+                                <span class="remove-item"><i class="ti-close"></i></span>
+                            </div>`;
+                    });
+                    return html;
+                })
+                $('#cart_total').html(res.data.total);
+            });
+        }
+    </script>
 </body>
 </html>
