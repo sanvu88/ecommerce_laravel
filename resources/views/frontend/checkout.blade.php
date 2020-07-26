@@ -54,7 +54,7 @@
                                 <p>Thanh toán tiền mặt khi nhận hàng</p>
                                 <p>Ghi chú: <span class="note"></span></p>
                                 <div class="shopping-total">
-                                    <p> <span class="float-right">40,000 VNĐ</span></p>
+                                    <p> <span class="float-right">{{ $cart::total() }} VNĐ</span></p>
                                     <p>Mã giảm giá <span class="float-right">-2,000 VNĐ</span></p>
                                     <p>Phí ship <span class="float-right">20,000 VNĐ</span></p>
                                     <p class="total">Thanh toán <span class="price float-right">58,000 VNĐ</span></p>

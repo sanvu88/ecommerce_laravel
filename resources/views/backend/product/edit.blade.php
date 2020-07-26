@@ -57,10 +57,12 @@
                                     </div>
                                     <div class="col-md-6 mb-10">
                                         <label>Category</label>
-                                        <select class="form-control custom-select" name="category_id">
-                                            <option value="0" selected>--- ROOT ---</option>
-                                            @include('backend.includes.categories_options', ['categories' => $allCategory, 'dash' => ' --- ', 'selected' => $product->category_id])
+                                        <select name="categories[]" class="select2" multiple="multiple">
+                                            @include('backend.includes.categories_options', ['categories' => $categories, 'dash' => '', 'selected' => $product->categories()->pluck('id')->toArray()])
                                         </select>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -136,7 +138,7 @@
                                 <div class="form-row">
                                     <div class="col-md-6 mb-10">
                                         <label>Manufacturer</label>
-                                        <input type="text" class="form-control" name="manufacturer" placeholder="Product Manufacturer" value="{{ $product->manufacturer }}" required>
+                                        <input type="text" class="form-control" name="manufacturer" placeholder="Product Manufacturer" value="{{ $product->manufacturer }}">
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>

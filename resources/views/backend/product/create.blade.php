@@ -55,9 +55,8 @@
                                     </div>
                                     <div class="col-md-6 mb-10">
                                         <label>Category</label>
-                                        <select class="form-control custom-select" name="category_id">
-                                            <option value="" selected>--- ROOT ---</option>
-                                            @include('backend.includes.categories_options', ['categories' => $allCategory, 'dash' => '--- ', 'selected' => 'NULL'])
+                                        <select name="categories[]" class="select2" multiple="multiple">
+                                            @include('backend.includes.categories_options', ['categories' => $categories, 'dash' => '', 'selected' =>[]])
                                         </select>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -148,7 +147,7 @@
                                 <div class="form-row">
                                     <div class="col-md-6 mb-10">
                                         <label>Manufacturer</label>
-                                        <input type="text" class="form-control" name="manufacturer" placeholder="Product Manufacturer" required>
+                                        <input type="text" class="form-control" name="manufacturer" placeholder="Product Manufacturer">
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>

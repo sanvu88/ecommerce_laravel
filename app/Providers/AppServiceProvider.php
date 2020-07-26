@@ -15,12 +15,15 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         View::composer(
-            ['frontend.layouts.app', 'frontend.category', 'frontend.search'],
-            'App\Http\View\Composers\Frontend\MenuComposer'
+            [
+                'frontend.layouts.app', 'frontend.category', 'frontend.search',
+                'backend.product.create', 'backend.product.edit',
+            ],
+            'App\Http\View\Composers\Frontend\CategoryComposer'
         );
 
         View::composer(
-            ['frontend.includes.cart_menu', 'frontend.cart'],
+            ['frontend.includes.cart_menu', 'frontend.cart', 'frontend.checkout'],
             'App\Http\View\Composers\Frontend\CartComposer'
         );
     }

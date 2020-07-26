@@ -17,7 +17,8 @@
         "laravel/framework": "^6.2",
         "laravel/scout": "^8.1",
         "laravel/tinker": "^2.0",
-        "teamtnt/laravel-scout-tntsearch-driver": "^9.0"
+        "teamtnt/laravel-scout-tntsearch-driver": "^9.0",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

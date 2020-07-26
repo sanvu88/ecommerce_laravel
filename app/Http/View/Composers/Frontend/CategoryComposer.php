@@ -6,7 +6,7 @@ namespace App\Http\View\Composers\Frontend;
 use App\Models\Category;
 use Illuminate\View\View;
 
-class MenuComposer
+class CategoryComposer
 {
     /** @var Category  */
     protected $categories;

@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->get();
+        $products = Product::paginate(10);
         return view('backend.product.index')->with('products', $products);
     }
 
@@ -47,8 +47,12 @@ class ProductController extends Controller
     {
         $product = Product::create($request->except(['tags', 'thumbnail', 'images']));
 
+        // Sync Categories
+        $categories = $request->get('categories') ?? [];
+        $product->categories()->sync($categories);
+
         // Sync tags
-        $tags = (array) $request->get('tags');
+        $tags = (array) $request->get('tags') ?? [];
         foreach ($tags as $tag) {
             Tag::firstOrCreate(['name' => $tag]);
         }
@@ -109,12 +113,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $allCategory = Category::root()->get();
         $allStatus = config('common.product.status');
 
         return view('backend.product.edit')
             ->with('product', $product)
-            ->with('allCategory', $allCategory)
             ->with('allStatus', $allStatus);
     }
 
@@ -127,10 +129,14 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $product->update($request->except(['tags', 'thumbnail']));
+        $product->update($request->except(['tags', 'thumbnail', 'categories']));
+
+        // Sync Categories
+        $categories = $request->get('categories') ?? [];
+        $product->categories()->sync($categories);
 
         // Sync Tags
-        $tags = $request->get('tags');
+        $tags = $request->get('tags') ?? [];
         foreach ($tags as $tag) {
             Tag::firstOrCreate(['name' => $tag]);
         }

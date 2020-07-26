@@ -33,14 +33,13 @@
                 <section class="hk-sec-wrapper">
                     <div class="row">
                         <div class="col-sm">
-                            <div class="table-wrap">
-                                <table id="datable_1" class="table table-hover w-100 display pb-30">
+                            <div class="table-wrap table-responsive">
+                                <table class="table table-hover w-100 display pb-30">
                                     <thead class="thead-dark">
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Thumbnail</th>
-                                        <th>Category</th>
                                         <th>Status</th>
                                         <th>Price</th>
                                         <th>Created at</th>
@@ -54,9 +53,8 @@
                                             <td>{{ $product->id }}</td>
                                             <td>{{ $product->name }}</td>
                                             <td><img src="{{ $product->thumbnail }}" class="img-fluid img-thumbnail" height="100" width="100" alt="img"></td>
-                                            <td>{{ $product->category_name }}</td>
                                             <td>{{ $product->status_name }}</td>
-                                            <td>{{ $product->price }}</td>
+                                            <td>{{ number_format($product->price, 0) }} VNĐ</td>
                                             <td>{{ $product->created_at }}</td>
                                             <td>{{ $product->updated_at }}</td>
                                             <td>
@@ -75,7 +73,6 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Thumbnail</th>
-                                        <th>Category</th>
                                         <th>Status</th>
                                         <th>Price</th>
                                         <th>Created at</th>
@@ -84,6 +81,19 @@
                                     </tr>
                                     </tfoot>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="float-left">
+                                {!! $products->total() !!} products
+                            </div>
+                        </div>
+
+                        <div class="col-5">
+                            <div class="float-right">
+                                {!! $products->render() !!}
                             </div>
                         </div>
                     </div>
@@ -109,5 +119,6 @@
     <script src="{{ asset('backend/vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('backend/dist/js/dataTables-data.js') }}"></script>
+{{--    <script src="{{ asset('backend/dist/js/dataTables-data.js') }}"></script>--}}
 @endsection
+

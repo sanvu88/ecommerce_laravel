@@ -3,15 +3,6 @@
 "use strict"; 
 
 $(document).ready(function() {
-	$('#datable_1').DataTable({
-		responsive: true,
-		autoWidth: false,
-		language: { search: "",
-		searchPlaceholder: "Search",
-		sLengthMenu: "_MENU_items"
-
-		}
-	});
     $('#datable_2').DataTable({ 
 		autoWidth: false,
 		lengthChange: false,
