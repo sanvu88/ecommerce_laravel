@@ -16,17 +16,17 @@
                 <div class="col-lg-7 col-sm-8 col-xs-12">
                     <h4>{{ $product->name }}</h4>
                     <p class="wrap-price-detail">
-                        <del>{{ $product->price }}</del><br>
-                        <span class="price">{{ $product->promotion_price }}</span>
+                        <del>{{ number_format($product->price, 0) }} VNĐ</del><br>
+                        <span class="price">{{ number_format($product->promotion_price, 0) }} VNĐ</span>
                     </p>
                     <p>Tình trạng: Còn hàng</p>
                     <div class="mb-10">
                         <button class="btn-default-solid">Chọn mua</button>
-                        <!-- <div class="wrap-group-number">
+                        <div class="wrap-group-number">
                             <button class="btn-plus"><i class="ti-plus"></i></button>
                             <button class="btn-minus"><i class="ti-minus"></i></button>
-                            <input type="text" disabled="" value="2">
-                        </div> -->
+                            <input id="qty" type="text" disabled="" value="1">
+                        </div>
                     </div>
 
                     <p> Nhà sản xuất: {{ $product->manufacturer }}</p>
@@ -38,4 +38,20 @@
             {!! $product->long_description !!}
         </div>
     </section>
+@endsection
+
+@section('script')
+    <script>
+        $('.btn-plus').click(function () {
+            if ($('#qty').val() < {{ $product->amount }}) {
+                $('#qty').val(parseInt($('#qty').val()) + 1);
+            }
+        });
+
+        $('.btn-minus').click(function () {
+            if ($('#qty').val() > 0) {
+                $('#qty').val(parseInt($('#qty').val()) - 1);
+            }
+        });
+    </script>
 @endsection

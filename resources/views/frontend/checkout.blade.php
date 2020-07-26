@@ -1,6 +1,8 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+    {{ Breadcrumbs::render('checkout') }}
+
     <section>
         <div class="container vrsg-cart">
             <div class="row">

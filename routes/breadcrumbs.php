@@ -19,13 +19,24 @@ Breadcrumbs::for('parent_category', function ($trait, $category) {
 Breadcrumbs::for('category', function ($trait, $category) {
     $trait->parent('home');
     $trait->parent('parent_category', $category->parent);
-    $trait->push($category->name);
+    $trait->push($category->name, route('category', ['slug' => $category->slug]));
 });
 
 // Home > [Category] > [Product]
 Breadcrumbs::for('product', function ($trait, $product) {
     $trait->parent('home');
     $trait->parent('parent_category', $product->categories()->first());
-    $trait->push($product->name);
+    $trait->push($product->name, route('product', ['slug' => $product->slug]));
 });
 
+// Home > Cart
+Breadcrumbs::for('cart', function ($trait) {
+    $trait->parent('home');
+    $trait->push('Giỏ hàng', route('cart'));
+});
+
+// Home > Cart > Checkout
+Breadcrumbs::for('checkout', function ($trait) {
+    $trait->parent('cart');
+    $trait->push('Thanh toán', route('cart.checkout'));
+});

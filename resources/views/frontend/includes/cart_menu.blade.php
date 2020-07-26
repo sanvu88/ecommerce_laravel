@@ -11,7 +11,7 @@
                     </div>
                     <div class="content-text-item">
                         <a href="#">{{ $product->name }}</a>
-                        <p>{{ $product->qty }} x {{ $product->price }} VNĐ</p>
+                        <p>{{ $product->qty }} x {{ number_format($product->price, 0) }} VNĐ</p>
                     </div>
                     <span class="remove-item"><i class="ti-close"></i></span>
                 </div>

@@ -25,6 +25,6 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::group(['prefix' => 'cart'], function () {
     Route::get('/', 'CartController@index')->name('cart');
-    Route::get('/checkout', 'CartController@checkout');
+    Route::get('/checkout', 'CartController@checkout')->name('cart.checkout');
     Route::post('/', 'CartController@add')->name('cart.add');
 });

@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+    {{ Breadcrumbs::render('cart') }}
 
     <section>
         <div class="container vrsg-cart">
@@ -24,7 +25,7 @@
                                 </div>
                                 <p class="item-price cart-price">
                                     <span>x</span>
-                                    <span class="price">{{ $product->price }}</span>
+                                    <span class="price">{{ number_format($product->price, 0) }}</span>
                                 </p>
                             </div>
                         </div>
@@ -48,7 +49,7 @@
                             </div>
                         </div>
                         <div class="text-center go-checkout">
-                            <button class="btn-default float-right w-100">Tiến hành thanh toán</button>
+                            <a href="{{ route('cart.checkout') }}" class="btn-default float-right w-100">Tiến hành thanh toán</a>
                         </div>
                     </div>
 
