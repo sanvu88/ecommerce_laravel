@@ -25,6 +25,6 @@ class MenuComposer
      */
     public function compose(View $view)
     {
-        $view->with('categories', $this->categories::with(['children'])->root()->get());
+        $view->with('categories', $this->categories->root()->get());
     }
 }

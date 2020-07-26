@@ -29,7 +29,7 @@ class HomeController extends Controller
      */
     public function showCategory(Request $request, $slug)
     {
-        $category = Category::where('slug', '=', $slug)->first(['id', 'name']);
+        $category = Category::with('parent')->where('slug', '=', $slug)->first();
         $products = $category->products()->paginate(config('common.pagination'));
         return view('frontend.category')
             ->with('category', $category)

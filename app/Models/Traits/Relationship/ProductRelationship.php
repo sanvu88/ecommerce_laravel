@@ -4,7 +4,7 @@ namespace App\Models\Traits\Relationship;
 
 trait ProductRelationship
 {
-    public function category()
+    public function categories()
     {
         return $this->belongsToMany('App\Models\Category', 'product_category');
     }

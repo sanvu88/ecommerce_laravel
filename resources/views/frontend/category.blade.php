@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+    {{ Breadcrumbs::render('category', $category) }}
     <section>
         <div class="container vrsg-categories">
             <div class="row">

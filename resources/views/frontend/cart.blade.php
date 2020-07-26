@@ -41,7 +41,7 @@
                                 <input type="text" placeholder="Mã giảm giá">
                                 <button class="btn-default-solid">Áp dụng</button>
                                 <div class="pt-30">
-                                    <p><span class="float-right">40,000 VNĐ</span></p>
+                                    <p><span class="float-right">{{ $cart::total() }} VNĐ</span></p>
                                     <p class="p-promo">Mã <strong>dt062005</strong> giảm giá <span class="float-right">-2,000 VNĐ</span></p>
                                     <p>Tạm tính <span class="float-right price">38,000 VNĐ</span></p>
                                 </div>

@@ -30,7 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $allCategory = Category::with('children')->root()->get();
+        $allCategory = Category::root()->get();
         $allStatus = config('common.product.status');
         return view('backend.product.create')
             ->with('allCategory', $allCategory)
@@ -109,7 +109,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $allCategory = Category::with('children')->root()->get();
+        $allCategory = Category::root()->get();
         $allStatus = config('common.product.status');
 
         return view('backend.product.edit')

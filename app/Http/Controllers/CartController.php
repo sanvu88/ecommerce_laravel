@@ -9,9 +9,14 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    /**
+     * Show the cart
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        $categories = Category::with(['children'])->root()->get();
+        $categories = Category::root()->get();
 
         return view('frontend.cart')
             ->with('categories', $categories);
@@ -53,13 +58,13 @@ class CartController extends Controller
 
     public function checkout()
     {
-        $categories = Category::with(['children'])->root()->get();
+        $categories = Category::root()->get();
         $cart = Cart::content();
 
         if ($cart->count() > 0) {
             return view('frontend.checkout')->with('categories', $categories);;
         }
 
-        return redirect('home');
+        return redirect(route('home'));
     }
 }

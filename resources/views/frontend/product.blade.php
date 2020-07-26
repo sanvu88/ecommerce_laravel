@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+    {{ Breadcrumbs::render('product', $product) }}
     <section>
         <div class="container section--default">
             <div class="row">
