@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CheckoutRequest;
 use App\Models\Category;
+use App\Models\Customer;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -56,7 +59,7 @@ class CartController extends Controller
         ]);
     }
 
-    public function checkout()
+    public function getCheckout()
     {
         $categories = Category::root()->get();
         $cart = Cart::content();
@@ -66,5 +69,32 @@ class CartController extends Controller
         }
 
         return redirect(route('home'));
+    }
+
+    public function postCheckout(CheckoutRequest $request)
+    {
+        $cartInfo = Cart::content();
+
+        $customer = Customer::create($request->only(['fullname', 'email', 'address', 'phone_number']));
+
+        $order = Order::create([
+            'customer_id' => $customer->id,
+            'date' => date('Y-m-d H:i:s'),
+            'total' => str_replace(',', '', Cart::total()),
+            'note' => $request->get('note'),
+        ]);
+
+        if (count($cartInfo) > 0) {
+            foreach ($cartInfo as $key => $item) {
+                $orderDetail = OrderDetail::create([
+                    'order_id' => $order->id,
+                    'product_id' => $item->id,
+                    'quantity' => $item->qty,
+                    'price' => $item->price
+                ]);
+            }
+        }
+
+        Cart::destroy();
     }
 }

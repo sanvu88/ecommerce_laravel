@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="text-center go-checkout">
-                            <a href="{{ route('cart.checkout') }}" class="btn-default float-right w-100">Tiến hành thanh toán</a>
+                            <a href="{{ route('cart.getCheckout') }}" class="btn-default float-right w-100">Tiến hành thanh toán</a>
                         </div>
                     </div>
 

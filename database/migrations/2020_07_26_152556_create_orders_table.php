@@ -15,10 +15,9 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('customer_name');
-            $table->string('customer_phone_number');
-            $table->string('customer_email_number')->nullable();
-            $table->string('notice')->nullable();
+            $table->unsignedBigInteger('customer_id');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->string('note')->nullable();
             $table->dateTime('date');
             $table->string('coupon_id')->nullable();
             $table->string('tax')->nullable();

@@ -54,7 +54,7 @@
                                         <label>Parent</label>
                                         <select class="form-control custom-select" name="parent_id">
                                             <option value="" selected>--- ROOT ---</option>
-                                            @include('backend.includes.categories_options', ['categories' => $allCategory, 'dash' => '---', 'selected' => $category->parent_id])
+                                            @include('backend.includes.categories_options', ['categories' => $allCategory, 'dash' => '', 'selected' => $category->parent_id, 'type' => 'single'])
                                         </select>
                                     </div>
                                 </div>

@@ -26,13 +26,16 @@ class VRSG
             $crawler->filter('#all_category_btn_b.parentMenu #your-customize-category ul.list-unstyled li')->each(function (Crawler $node) {
                 if ($node->filter('a')->attr('type') == 'button') {
                     $category = $this->insertCategory($node);
+                    print 'Done ' . $category->name . "\n";
 
                     $node->parents()->filter('.sub-cat ul.list-unstyled li.hello_test')->each(function (Crawler $node) use ($category) {
-                        $this->insertCategory($node, $category->id);
+                        $category = $this->insertCategory($node, $category->id);
+                        print 'Done ' . $category->name . "\n";
                     });
                 }
                 if ($node->filter('a')->attr('type') != 'button' && $node->attr('class') != 'hello_test') {
-                    $this->insertCategory($node);
+                    $category = $this->insertCategory($node);
+                    print 'Done ' . $category->name . "\n";
                 }
             });
         } catch (Exception $exception) {

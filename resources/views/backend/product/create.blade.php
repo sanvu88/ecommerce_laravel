@@ -55,8 +55,8 @@
                                     </div>
                                     <div class="col-md-6 mb-10">
                                         <label>Category</label>
-                                        <select name="categories[]" class="select2" multiple="multiple">
-                                            @include('backend.includes.categories_options', ['categories' => $categories, 'dash' => '', 'selected' =>[]])
+                                        <select name="categories[]" class="form-control select2" multiple="multiple">
+                                            @include('backend.includes.categories_options', ['categories' => $categories, 'dash' => '', 'selected' =>[], 'type' => 'multiple'])
                                         </select>
                                         <div class="valid-feedback">
                                             Looks good!

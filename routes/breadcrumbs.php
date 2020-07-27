@@ -38,5 +38,5 @@ Breadcrumbs::for('cart', function ($trait) {
 // Home > Cart > Checkout
 Breadcrumbs::for('checkout', function ($trait) {
     $trait->parent('cart');
-    $trait->push('Thanh toán', route('cart.checkout'));
+    $trait->push('Thanh toán', route('cart.getCheckout'));
 });

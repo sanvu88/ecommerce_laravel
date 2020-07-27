@@ -58,7 +58,7 @@
                                     <div class="col-md-6 mb-10">
                                         <label>Category</label>
                                         <select name="categories[]" class="select2" multiple="multiple">
-                                            @include('backend.includes.categories_options', ['categories' => $categories, 'dash' => '', 'selected' => $product->categories()->pluck('id')->toArray()])
+                                            @include('backend.includes.categories_options', ['categories' => $categories, 'dash' => '', 'selected' => $product->categories()->pluck('id')->toArray(), 'type' => 'multiple'])
                                         </select>
                                         <div class="valid-feedback">
                                             Looks good!

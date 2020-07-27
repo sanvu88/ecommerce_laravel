@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->string('slug')->index();
             $table->longText('short_description')->nullable();
             $table->longText('long_description')->nullable();
-            $table->double('promotion_price')->default(0);
-            $table->double('price')->default(0);
+            $table->float('promotion_price')->default(0);
+            $table->float('price')->default(0);
             $table->integer('status')->default(1);
             $table->integer('amount')->default(0);
             $table->string('thumbnail_path')->nullable();
