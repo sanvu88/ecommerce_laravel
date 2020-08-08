@@ -1,5 +1,5 @@
 <div class="wrap-cart-icon has-item">
-    <a href="#" class="cart-icon"><i class="ti-shopping-cart"></i></a>
+    <a href="{{ route('cart') }}" class="cart-icon"><i class="ti-shopping-cart"></i></a>
     <span id="cart_qty" class="qty-cart">{{ $cart::count() }}</span>
     <a href="{{ route('cart') }}">Giỏ hàng</a>
     <div class="wrap-item-view-cart">

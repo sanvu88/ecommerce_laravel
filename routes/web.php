@@ -28,4 +28,9 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('/checkout', 'CartController@getCheckout')->name('cart.getCheckout');
     Route::post('/checkout', 'CartController@postCheckout')->name('cart.postCheckout');
     Route::post('/', 'CartController@add')->name('cart.add');
+    Route::post('/applyCoupon', 'CartController@applyCoupon')->name('cart.applyCoupon');
+    Route::delete('/applyCoupon', 'CartController@removeCoupon')->name('cart.removeCoupon');
+    Route::post('/getListDistrict', 'CartController@getListDistrict')->name('cart.getListDistrict');
+    Route::post('/getListWard', 'CartController@getListWard')->name('cart.getListWard');
+    Route::post('/getTax', 'CartController@getTax')->name('cart.getTax');
 });

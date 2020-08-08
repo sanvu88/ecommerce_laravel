@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer(
             [
-                'frontend.layouts.app', 'frontend.category', 'frontend.search',
+                'frontend.layouts.app', 'frontend.category', 'frontend.search', 'frontend.checkout',
                 'backend.product.create', 'backend.product.edit',
             ],
             'App\Http\View\Composers\Frontend\CategoryComposer'

@@ -19,9 +19,11 @@ class CreateOrdersTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->string('note')->nullable();
             $table->dateTime('date');
-            $table->string('coupon_id')->nullable();
-            $table->string('tax')->nullable();
-            $table->double('total')->default(0);
+            $table->unsignedBigInteger('coupon_id')->nullable();
+            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
+            $table->float('tax')->default(0);
+            $table->float('discount')->default(0);
+            $table->float('total')->default(0);
             $table->string('payment_way');
             $table->string('status');
             $table->timestamps();

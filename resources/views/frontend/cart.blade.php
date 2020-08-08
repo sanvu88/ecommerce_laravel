@@ -25,7 +25,7 @@
                                 </div>
                                 <p class="item-price cart-price">
                                     <span>x</span>
-                                    <span class="price">{{ number_format($product->price, 0) }}</span>
+                                    <span class="price">{{ number_format($product->price, 0) }} VNĐ</span>
                                 </p>
                             </div>
                         </div>
@@ -39,12 +39,25 @@
                                 Áp dụng giảm giá
                             </h4>
                             <div class="wrap-apply-promo">
-                                <input type="text" placeholder="Mã giảm giá">
-                                <button class="btn-default-solid">Áp dụng</button>
+                                @if(!isset($coupon))
+                                    <form action="{{ route('cart.applyCoupon') }}" method="post">
+                                        @csrf
+                                        <input type="text" name="code" placeholder="Mã giảm giá">
+                                        <button class="btn-default-solid" type="submit">Áp dụng</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('cart.removeCoupon') }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn-default-solid" type="submit">Gỡ mã giảm giá</button>
+                                    </form>
+                                @endif
                                 <div class="pt-30">
-                                    <p><span class="float-right">{{ $cart::total() }} VNĐ</span></p>
-                                    <p class="p-promo">Mã <strong>dt062005</strong> giảm giá <span class="float-right">-2,000 VNĐ</span></p>
-                                    <p>Tạm tính <span class="float-right price">38,000 VNĐ</span></p>
+                                    <p><span class="float-right">{{ $cart::subTotal() }} VNĐ</span></p>
+                                    @if(isset($coupon))
+                                        <p class="p-promo">Mã <strong>{{ $coupon }}</strong> giảm giá <span class="float-right">-{{ $discount }} VNĐ</span></p>
+                                    @endif
+                                    <p>Tạm tính <span class="float-right price">{{ $newSubtotal }} VNĐ</span></p>
                                 </div>
                             </div>
                         </div>
