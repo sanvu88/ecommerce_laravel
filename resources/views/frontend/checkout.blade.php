@@ -146,7 +146,7 @@
             let district_code = $('#district').children("option:selected").val();
             $.ajax({
                 type: 'POST',
-                url: '{{ route('cart.getTax') }}',
+                url: '{{ route('cart.updateTax') }}',
                 data: {
                     _token: '{{ csrf_token() }}',
                     province_code: province_code,

@@ -11,20 +11,13 @@
 |
 */
 
-Auth::routes();
-
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{slug}', 'HomeController@showCategory')->name('category');
 Route::get('/products/{slug}', 'HomeController@showProduct')->name('product');
 Route::get('/search', 'HomeController@search')->name('search');
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::resource('categories', 'CategoryController');
-    Route::resource('products', 'ProductController');
-});
-
 Route::group(['prefix' => 'cart'], function () {
-    Route::get('/', 'CartController@index')->name('cart');
+    Route::get('/', 'CartController@index')->name('cart.index');
     Route::get('/checkout', 'CartController@getCheckout')->name('cart.getCheckout');
     Route::post('/checkout', 'CartController@postCheckout')->name('cart.postCheckout');
     Route::post('/', 'CartController@add')->name('cart.add');
@@ -32,5 +25,12 @@ Route::group(['prefix' => 'cart'], function () {
     Route::delete('/applyCoupon', 'CartController@removeCoupon')->name('cart.removeCoupon');
     Route::post('/getListDistrict', 'CartController@getListDistrict')->name('cart.getListDistrict');
     Route::post('/getListWard', 'CartController@getListWard')->name('cart.getListWard');
-    Route::post('/getTax', 'CartController@getTax')->name('cart.getTax');
+    Route::post('/updateTax', 'CartController@getTax')->name('cart.updateTax');
+});
+
+Auth::routes();
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::resource('categories', 'CategoryController');
+    Route::resource('products', 'ProductController');
 });

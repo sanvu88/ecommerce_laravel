@@ -32,7 +32,7 @@ Breadcrumbs::for('product', function ($trait, $product) {
 // Home > Cart
 Breadcrumbs::for('cart', function ($trait) {
     $trait->parent('home');
-    $trait->push('Giỏ hàng', route('cart'));
+    $trait->push('Giỏ hàng', route('cart.index'));
 });
 
 // Home > Cart > Checkout

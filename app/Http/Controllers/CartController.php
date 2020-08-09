@@ -150,6 +150,8 @@ class CartController extends Controller
 
         Cart::destroy();
         session()->forget('coupon');
+
+        return redirect()->route('home');
     }
 
     public function applyCoupon(Request $request)
@@ -157,11 +159,11 @@ class CartController extends Controller
         $coupon = Coupon::where('code', strtoupper($request->code))->first();
 
         if (!$coupon instanceof Coupon) {
-            return redirect()->route('cart')->withErrors('Invalid coupon code. Please try again.');
+            return redirect()->route('cart.index')->withErrors('Invalid coupon code. Please try again.');
         }
 
         if ($coupon->type == config('common.coupon_type.expired')) {
-            return redirect()->route('cart')->withErrors('Expired coupon code. Please try another coupon.');
+            return redirect()->route('cart.index')->withErrors('Expired coupon code. Please try another coupon.');
         }
 
         session()->put('coupon', [
@@ -169,20 +171,13 @@ class CartController extends Controller
             'discount' => $coupon->discount(Cart::subtotal())
         ]);
 
-        return redirect()->route('cart')->with('success_message', 'Coupon has been applied!');
+        return redirect()->route('cart.index')->with('success_message', 'Coupon has been applied!');
     }
 
     public function removeCoupon(Request $request)
     {
         session()->forget('coupon');
-        return redirect()->route('cart')->with('success_message', 'Coupon has been removed!');
-    }
-
-    public function updateTax(Request $request)
-    {
-        $districtId = $request->districtId;
-
-
+        return redirect()->route('cart.index')->with('success_message', 'Coupon has been removed!');
     }
 
     public function getListDistrict(Request $request)
@@ -203,7 +198,7 @@ class CartController extends Controller
         return response()->json(['data' => $wards]);
     }
 
-    public function getTax(Request $request)
+    public function updateTax(Request $request)
     {
         $provinceCode = $request->province_code;
         $dictrictCode = $request->district_code;

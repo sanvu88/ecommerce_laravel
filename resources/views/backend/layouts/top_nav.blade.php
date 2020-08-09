@@ -133,7 +133,10 @@
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-power"></i><span>Log out</span></a>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button class="dropdown-item" type="submit"><i class="dropdown-icon zmdi zmdi-power"></i><span>Log out</span></button>
+                </form>
             </div>
         </li>
     </ul>
