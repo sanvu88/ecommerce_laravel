@@ -31,6 +31,8 @@ Route::group(['prefix' => 'cart'], function () {
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::get('/', 'AdminController@index')->name('admin.home');
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController');
+    Route::resource('order', 'OrderController');
 });
