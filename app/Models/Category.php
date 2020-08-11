@@ -17,5 +17,7 @@ class Category extends Model
 
     protected $guarded = ['id'];
 
+    protected $table = 'categories';
+
     protected $with = ['children'];
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImageablesTable extends Migration
+class CreateProductGroupTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateImageablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('imageables', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('image_id');
-            $table->unsignedBigInteger('imageable_id');
-            $table->string('imageable_type');
+        Schema::create('product_group', function (Blueprint $table) {
+            $table->unsignedBigInteger('group_id');
+            $table->unsignedBigInteger('product_id');
         });
     }
 
@@ -28,6 +26,6 @@ class CreateImageablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('imageables');
+        Schema::dropIfExists('product_group');
     }
 }

@@ -15,11 +15,10 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('filename');
-            $table->string('path')->nullable();
+            $table->string('url');
             $table->integer('height')->nullable();
             $table->integer('width')->nullable();
-            $table->float('size')->nullable();
+            $table->double('size', 8, 2)->nullable();
             $table->timestamps();
         });
     }

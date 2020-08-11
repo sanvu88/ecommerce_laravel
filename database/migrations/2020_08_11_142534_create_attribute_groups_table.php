@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnAddressForOrderTable extends Migration
+class CreateAttributeGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddColumnAddressForOrderTable extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->string('address')->after('customer_id');
+        Schema::create('attribute_groups', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->tinyInteger('status')->default(1);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddColumnAddressForOrderTable extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('address');
-        });
+        Schema::dropIfExists('attribute_groups');
     }
 }

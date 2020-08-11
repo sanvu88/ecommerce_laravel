@@ -5,6 +5,7 @@ namespace App\Scraper;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductPromotion;
 use Goutte\Client;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -99,6 +100,15 @@ class VRSG
     private function insertProduct($node, $category) {
         $name = $node->filter('h1[itemprop="name"]')->text();
         $sku = $node->filter('img[itemprop="sku"]')->attr('content');
+        while (Product::where('sku', $sku)->first()) {
+            $sku = $sku . strtoupper(Str::random(2));
+        };
+        $slug = Str::slug($name);
+        $count = 2;
+        while (Product::where('slug', $slug)->first()) {
+            $slug = $slug .'_'. $count;
+            $count++;
+        };
         $shortDescription = $node->filter('p[itemprop="description"]')->text();
         $longDescription = $node->filter('section.tabs_content .post_content')->html();
         $price = $node->filter('#product_price')->text();
@@ -110,28 +120,33 @@ class VRSG
             $promotionPrice = preg_replace('/\./', '', $promotionPrice);
             $promotionPrice = preg_replace('/\đ/', '', $promotionPrice);
         } else {
-            $promotionPrice = $price;
+            $promotionPrice = null;
         }
 
         $imageSrc = $node->filter('img[itemprop="image"]')->attr('data-zoom-image');
         $file = @file_get_contents($imageSrc);
-        $thumbnailName = 'thumbnail_' . $sku . '_' . time() . '.png';
-        $thumbnailPath = 'images/product/' . $sku . '/thumbnail';
-        Storage::put($thumbnailPath. '/' . $thumbnailName, $file);
+        $time = time();
+        $thumbnail = "/images/product/{$sku}/thumbnail/thumbnail_{$sku}_{$time}.png";
+        Storage::put($thumbnail, $file);
 
         $product = Product::updateOrCreate([
             'sku' => $sku,
             'name' => $name,
-            'slug' => Str::slug($name),
+            'slug' => $slug,
+            'thumbnail' => Storage::url($thumbnail),
             'short_description' => $shortDescription,
             'long_description' => $longDescription,
-            'promotion_price' => (float)$promotionPrice,
-            'price' => (float)$price,
-            'status' => 1,
-            'amount' => 100,
-            'thumbnail_filename' => $thumbnailName,
-            'thumbnail_path' => $thumbnailPath,
+            'price' => (int) $price,
+            'stock' => 100,
         ]);
+
+        if ($product && isset($promotionPrice)) {
+            ProductPromotion::create([
+                'product_id' => $product->id,
+                'price_promotion' => $promotionPrice,
+            ]);
+        }
+
         if (isset($category)) {
             $category->products()->attach($product->id);
             if (isset($category->parent)) {

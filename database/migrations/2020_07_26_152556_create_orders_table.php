@@ -15,17 +15,32 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->string('note')->nullable();
-            $table->dateTime('date');
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->string('fullname');
+            $table->string('address');
+            $table->string('country')->default('Vietnam');
+            $table->string('phone');
+            $table->string('email');
+            $table->string('customer_agent')->nullable();
+            $table->string('ip')->nullable();
+            $table->dateTime('date')->useCurrent();
             $table->unsignedBigInteger('coupon_id')->nullable();
-            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
-            $table->float('tax')->default(0);
-            $table->float('discount')->default(0);
-            $table->float('total')->default(0);
-            $table->string('payment_way');
-            $table->string('status');
+            $table->integer('payment_status')->default(1);
+            $table->integer('shipping_status')->default(1);
+            $table->integer('discount')->default(0);
+            $table->integer('shipping')->default(0);
+            $table->integer('tax')->default(0);
+            $table->integer('subtotal')->default(0);
+            $table->integer('total')->default(0);
+            $table->integer('received')->default(0);
+            $table->integer('balance')->default(0);
+            $table->string('currency')->default('VND');
+            $table->double('exchange_rate', 8, 2)->nullable();
+            $table->string('payment_method_id')->default(1);
+            $table->string('shipping_method_id')->default(1);
+            $table->tinyInteger('status')->default(1);
+            $table->string('note')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

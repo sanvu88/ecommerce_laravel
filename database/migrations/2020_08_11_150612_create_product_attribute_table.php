@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCouriersTable extends Migration
+class CreateProductAttributeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateCouriersTable extends Migration
      */
     public function up()
     {
-        Schema::create('couriers', function (Blueprint $table) {
+        Schema::create('product_attribute', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('province_code');
-            $table->string('district_code');
-            $table->integer('weight')->nullable();
-            $table->integer('amount')->nullable();
+            $table->string('name');
+            $table->unsignedBigInteger('attribute_group_id');
+            $table->unsignedBigInteger('product_id');
+            $table->integer('add_price');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateCouriersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('couriers');
+        Schema::dropIfExists('product_attribute');
     }
 }
