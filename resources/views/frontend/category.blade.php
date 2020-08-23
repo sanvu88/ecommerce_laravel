@@ -27,8 +27,12 @@
                             </a>
                             <a href="{{ route('product', ['slug' => $product->slug]) }}" class="item-title">{{ $product->name }}</a>
                             <p class="item-price">
-                                <del>{{ number_format($product->price, 0) }} VNĐ</del>
-                                <span class="price">{{ number_format($product->promotion_price, 0) }} VNĐ</span>
+                                @if ($product->current_promotion)
+                                    <del>{{ number_format($product->price, 0) }} VNĐ</del>
+                                    <span class="price">{{ number_format($product->current_promotion->price_promotion, 0) }} VNĐ</span>
+                                @else
+                                    <span class="price">{{ number_format($product->price, 0) }} VNĐ</span>
+                                @endif
                             </p>
                             <button class="btn-default-solid" onclick="addToCart({{$product->id}}, 1)">Chọn mua</button>
                             <div class="wrap-group-number" style="display: none;">

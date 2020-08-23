@@ -18,19 +18,13 @@ class AdminController extends Controller
         $orders = Order::all();
         $orderTotal = $orders->count();
         $orderIncrease = $orders->where('created_at', '>=', $date);
-        $orderIncrease = round($orderIncrease->count() / $orderTotal, 2) * 100;
+        $orderIncrease = $orderTotal > 0 ? round($orderIncrease->count() / $orderTotal, 2) * 100 : 0;
 
         // Product statistic
         $products = Product::all();
         $productTotal = $products->count();
         $productIncrease = $products->where('created_at', '>=', $date);
-        $productIncrease = round($productIncrease->count() / $productTotal, 2) * 100;
-
-        // Customer statictis
-        $customers = Customer::all();
-        $customerTotal = $customers->count();
-        $customerIncrease = $customers->where('created_at', '>=', $date);
-        $customerIncrease = round($customerIncrease->count() / $customerTotal, 2) * 100;
+        $productIncrease = $productTotal > 0 ? round($productIncrease->count() / $productTotal, 2) * 100 : 0;
 
         return view('backend.dashboard.index')
             ->with([
@@ -38,8 +32,6 @@ class AdminController extends Controller
                 'orderIncrease' => $orderIncrease,
                 'productTotal' => $productTotal,
                 'productIncrease' => $productIncrease,
-                'customerTotal' => $customerTotal,
-                'customerIncrease' => $customerIncrease,
             ]);
     }
 }

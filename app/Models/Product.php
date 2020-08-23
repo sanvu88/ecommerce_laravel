@@ -19,6 +19,8 @@ class Product extends Model
 
     protected $primaryKey = 'id';
 
+    protected $with = ['promotions'];
+
     public $asYouType = true;
 
     public function searchableAs()

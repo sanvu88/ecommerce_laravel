@@ -16,8 +16,12 @@
                 <div class="col-lg-7 col-sm-8 col-xs-12">
                     <h4>{{ $product->name }}</h4>
                     <p class="wrap-price-detail">
-                        <del>{{ number_format($product->price, 0) }} VNĐ</del><br>
-                        <span class="price">{{ number_format($product->promotion_price, 0) }} VNĐ</span>
+                        @if ($product->current_promotion)
+                            <del>{{ number_format($product->price, 0) }} VNĐ</del><br>
+                            <span class="price">{{ number_format($product->current_promotion->price_promotion, 0) }} VNĐ</span>
+                        @else
+                            <span class="price">{{ number_format($product->price, 0) }} VNĐ</span>
+                        @endif
                     </p>
                     <p>Tình trạng: Còn hàng</p>
                     <div class="mb-10">

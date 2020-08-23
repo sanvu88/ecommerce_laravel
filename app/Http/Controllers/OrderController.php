@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -10,12 +10,12 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $orders = Order::all();
-
+        $orders = Order::paginate(10);
+        return view('backend.order.index')->with('orders', $orders);
     }
 
     /**

@@ -18,4 +18,9 @@ trait ProductRelationship
     {
         return $this->morphToMany('App\Models\Image', 'imageable');
     }
+
+    public function promotions()
+    {
+        return $this->hasMany('App\Models\ProductPromotion', 'product_id', 'id');
+    }
 }
