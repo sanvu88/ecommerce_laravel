@@ -27,4 +27,14 @@ class Product extends Model
     {
         return 'products_index';
     }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'sku' => $this->sku,
+            'name' => $this->name,
+            'slug' => $this->slug,
+        ];
+    }
 }

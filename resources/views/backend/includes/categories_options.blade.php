@@ -1,7 +1,7 @@
 @foreach($categories as $category)
-    @if ($type === 'multiple')
+    @if ($type == 'multiple')
         @if(in_array($category->id, $selected))
-        <option value="{{ $category->id }}" selected>{{ $dash . '--| ' . $category->name }}</option>
+            <option value="{{ $category->id }}" selected>{{ $dash . '--| ' . $category->name }}</option>
         @else
             <option value="{{ $category->id }}">{{ $dash . '--| ' . $category->name }}</option>
         @endif

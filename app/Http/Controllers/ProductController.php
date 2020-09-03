@@ -8,6 +8,8 @@ use App\Models\Image;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Tag;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -30,11 +32,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $allCategory = Category::root()->get();
         $allStatus = config('common.product.status');
+        $allWeightUnit = config('common.product.weight_unit');
+        $allDimensionUnit = config('common.product.dimension_unit');
         return view('backend.product.create')
-            ->with('allCategory', $allCategory)
-            ->with('allStatus', $allStatus);
+            ->with('allStatus', $allStatus)
+            ->with('allWeightUnit', $allWeightUnit)
+            ->with('allDimensionUnit', $allDimensionUnit)
+        ;
     }
 
     /**
@@ -45,7 +50,7 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-        $product = Product::create($request->except(['tags', 'thumbnail', 'images']));
+        $product = Product::create($request->except(['categories', 'tags', 'thumbnail', 'images']));
 
         // Sync Categories
         $categories = $request->get('categories') ?? [];
@@ -65,8 +70,7 @@ class ProductController extends Controller
             $thumbnailName = 'thumbnail_' . $product->sku . '_' . time() . '.' . $file->getClientOriginalExtension();
             $thumbnailPath = 'images/product/' . $product->sku . '/thumbnail';
             $file->storeAs($thumbnailPath, $thumbnailName);
-            $product->thumbnail_filename = $thumbnailName;
-            $product->thumbnail_path = $thumbnailPath;
+            $product->thumbnail = Storage::url($thumbnailPath . '/' .$thumbnailName);
             $product->save();
         }
 
@@ -114,10 +118,14 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $allStatus = config('common.product.status');
+        $allWeightUnit = config('common.product.weight_unit');
+        $allDimensionUnit = config('common.product.dimension_unit');
 
         return view('backend.product.edit')
             ->with('product', $product)
-            ->with('allStatus', $allStatus);
+            ->with('allStatus', $allStatus)
+            ->with('allWeightUnit', $allWeightUnit)
+            ->with('allDimensionUnit', $allDimensionUnit);
     }
 
     /**
@@ -129,7 +137,7 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $product->update($request->except(['tags', 'thumbnail', 'categories']));
+        $product->update($request->except(['categories', 'tags', 'thumbnail']));
 
         // Sync Categories
         $categories = $request->get('categories') ?? [];
@@ -149,8 +157,7 @@ class ProductController extends Controller
             $thumbnailName = 'thumbnail_' . $product->sku . '_' . time() . '.' . $file->getClientOriginalExtension();
             $thumbnailPath = 'images/product/' . $product->sku . '/thumbnail';
             $file->storeAs($thumbnailPath, $thumbnailName);
-            $product->thumbnail_filename = $thumbnailName;
-            $product->thumbnail_path = $thumbnailPath;
+            $product->thumbnail = Storage::url($thumbnailPath . '/' .$thumbnailName);
             $product->save();
         }
 
@@ -168,6 +175,44 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect(route('products.index'))->with('success', 'You have successfully deleted the category');
+        return redirect(route('products.index'))->with('success', 'You have successfully move the product to trashed');
+    }
+
+    /**
+     * Display a listing of the trashed products.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function trashed()
+    {
+        $products = Product::onlyTrashed()->paginate(10);
+        return view('backend.product.trashed')->with('products', $products);
+    }
+
+    /**
+     * Restored a trashed product
+     *
+     * @param Request $request
+     * @param Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function restore(Request $request, $id)
+    {
+        $product = Product::onlyTrashed()->where('id', $id)->first();
+        $product->restore();
+        return redirect(route('products.trashed'))->with('success', 'You have successfully restored the product');
+    }
+
+    /**
+     * Force delete a trashed product
+     *
+     * @param Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function forceDelete($id)
+    {
+        $product = Product::onlyTrashed()->where('id', $id)->first();
+        $product->forceDelete();
+        return redirect(route('products.trashed'))->with('success', 'You have successfully deleted the product');
     }
 }

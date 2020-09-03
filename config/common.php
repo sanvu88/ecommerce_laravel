@@ -3,13 +3,23 @@
 return [
     'product' => [
         'status' => [
-            '1' => 'Còn hàng',
-            '0' => 'Hết hàng',
+            1 => 'Còn hàng',
+            0 => 'Hết hàng',
         ],
-        'unit_type'=> [
-            '1' => 'Chiếc',
-            '2' => 'Gram',
-            '3' => 'Kg',
+        'weight_unit' => [
+            1 => 'Gram',
+            2 => 'Kilogram',
+        ],
+        'dimension_unit' => [
+            1 => 'Millimeter',
+            2 => 'Centimeter',
+            3 => 'Meter',
+        ],
+        'virtual' => [
+            1 => 'Physical',
+            2 => 'Download',
+            3 => 'Only view',
+            4 => 'Service',
         ],
     ],
     'pagination' => 12,

@@ -13,16 +13,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                @if($type === 'category')
+                @if($type == 'category')
                     <form action="{{ route('categories.destroy', ['category' => $item]) }}" method="post">
-                        {{ csrf_field() }}
+                        @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 @endif
-                @if($type === 'product')
-                    <form action="{{ route('products.destroy', ['product' => $item]) }}" method="post">
-                        {{ csrf_field() }}
+                @if($type == 'product')
+                    <form action="{{ route('products.forceDelete', ['id' => $item->id]) }}" method="post">
+                        @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>

@@ -19,10 +19,7 @@
     <div class="container-fluid px-xxl-65 px-xl-20">
         <!-- Title -->
         <div class="hk-pg-header">
-            <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>List of products</h4>
-            <div class="d-flex">
-                <a href="{{ route('products.create') }}" class="btn btn-outline-success"><i class="ion ion-md-add-circle-outline"></i> Create</a>
-            </div>
+            <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>List of trashed products</h4>
         </div>
         <!-- /Title -->
 
@@ -42,8 +39,7 @@
                                         <th>Thumbnail</th>
                                         <th>Status</th>
                                         <th>Price</th>
-                                        <th>Created at</th>
-                                        <th>Updated at</th>
+                                        <th>Deleted at</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -55,15 +51,15 @@
                                             <td><img src="{{ $product->thumbnail }}" class="img-fluid img-thumbnail" height="100" width="100" alt="img"></td>
                                             <td>{{ $product->status_name }}</td>
                                             <td>{{ number_format($product->price, 0) }} VNĐ</td>
-                                            <td>{{ $product->created_at }}</td>
-                                            <td>{{ $product->updated_at }}</td>
+                                            <td>{{ $product->deleted_at }}</td>
                                             <td>
-                                                <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="mr-25"> <i class="icon-pencil"></i> </a>
-                                                <a href="javascript:void(0)" class="mr-25" onclick="moveToTrash({{ $index }})"> <i class="icon-trash txt-danger"></i> </a>
-                                                <form name="trash_{{ $index }}" action="{{ route('products.destroy', ['product' => $product]) }}" method="post">
+                                                <a href="javascript:void(0)" class="mr-25" onclick="restore({{ $index }})"> <i class="icon" data-icon="&#xe050;"></i> </a>
+                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#delete_modal_{{ $index }}"> <i class="icon" data-icon="9"></i> </a>
+                                                <form name="restore_{{ $index }}" action="{{ route('products.restore', ['id' => $product->id]) }}" method="post">
                                                     @csrf
-                                                    @method('DELETE')
+                                                    @method('PUT')
                                                 </form>
+                                                @include('backend.includes.modal_delete_confirm', ['index' => $index, 'item' => $product, 'type' => 'product'])
                                             </td>
                                         </tr>
                                     @endforeach
@@ -78,7 +74,7 @@
                     <div class="row">
                         <div class="col-7">
                             <div class="float-left">
-                                {!! $products->total() !!} products
+                                {!! $products->total() !!} trashed products
                             </div>
                         </div>
 
@@ -110,13 +106,13 @@
     <script src="{{ asset('backend/vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-{{--    <script src="{{ asset('backend/dist/js/dataTables-data.js') }}"></script>--}}
+    {{--    <script src="{{ asset('backend/dist/js/dataTables-data.js') }}"></script>--}}
 
     <script>
-      function moveToTrash(index) {
-        let form = 'trash_' + index;
-        $(`form[name=${form}]`).submit();
-      }
+        function restore(index) {
+          let form = 'restore_' + index;
+          $(`form[name=${form}]`).submit();
+        }
     </script>
 @endsection
 

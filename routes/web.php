@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 Route::get('/category/{slug}', 'HomeController@showCategory')->name('category');
 Route::get('/products/{slug}', 'HomeController@showProduct')->name('product');
 Route::get('/search', 'HomeController@search')->name('search');
@@ -33,6 +34,9 @@ Auth::routes();
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'AdminController@index')->name('admin.home');
     Route::resource('categories', 'CategoryController');
+    Route::get('/products/trashed', 'ProductController@trashed')->name('products.trashed');
+    Route::put('/products/{id}/restore', 'ProductController@restore')->name('products.restore');
+    Route::delete('/products/{id}/forceDelete', 'ProductController@forceDelete')->name('products.forceDelete');
     Route::resource('products', 'ProductController');
     Route::resource('orders', 'OrderController');
 });

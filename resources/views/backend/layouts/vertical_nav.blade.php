@@ -39,7 +39,7 @@
                                     <a class="nav-link" href="{{ route('products.create') }}">Create</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Trashed</a>
+                                    <a class="nav-link" href="{{ route('products.trashed') }}">Trashed</a>
                                 </li>
                             </ul>
                         </li>

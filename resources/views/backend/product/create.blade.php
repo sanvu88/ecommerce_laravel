@@ -32,89 +32,75 @@
                                 <div class="form-row">
                                     <div class="col-md-6 mb-10">
                                         <label for="name">Name</label>
-                                        <input id="name" type="text" class="form-control" name="name" placeholder="Product name" value="" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
+                                        <input id="name" name="name" type="text" class="form-control" value="{{ old('name') }}" required>
+                                        <small class="form-text text-muted">*Required</small>
                                     </div>
                                     <div class="col-md-6 mb-10">
                                         <label for="slug">Slug</label>
-                                        <input id="slug" type="text" class="form-control" name="slug" placeholder="Product slug" value="" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
+                                        <input id="slug" name="slug" type="text" class="form-control" value="{{ old('slug') }}" required>
+                                        <small class="form-text text-muted">*Required</small>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-6 mb-10">
-                                        <label>SKU</label>
-                                        <input type="text" class="form-control" name="sku" placeholder="Product SKU" value="" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
+                                        <label for="sku">SKU</label>
+                                        <input id="sku" type="text" class="form-control" name="sku" value="{{ old('sku') }}" required>
+                                        <small class="form-text text-muted">*Required</small>
                                     </div>
                                     <div class="col-md-6 mb-10">
-                                        <label>Category</label>
-                                        <select name="categories[]" class="form-control select2" multiple="multiple">
+                                        <label for="categories">Category</label>
+                                        <select id="categories" name="categories[]" class="form-control select2" multiple="multiple">
                                             @include('backend.includes.categories_options', ['categories' => $categories, 'dash' => '', 'selected' =>[], 'type' => 'multiple'])
                                         </select>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-8 mb-10">
+                                    <div class="col-md-7 mb-10">
                                         <div class="form-row">
                                             <div class="col-md">
                                                 <label>Short Description</label>
                                                 <div class="tinymce-wrap">
-                                                    <textarea class="tinymce" rows="3" name="short_description"></textarea>
-                                                </div>
-                                                <div class="valid-feedback">
-                                                    Looks good!
+                                                    <textarea name="short_description" class="tinymce" rows="3"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-10">
+                                    <div class="col-md-5 mb-10">
                                         <div class="form-row">
-                                            <div class="col-md">
+                                            <div class="col-md mb-10">
                                                 <label>Thumbnail</label>
-                                                <input type="file" name="thumbnail" class="dropify" />
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
+                                                <input name="thumbnail" type="file" class="dropify" />
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="col-md">
-                                                <label>Status</label>
-                                                <select class="form-control custom-select" name="status">
+                                            <div class="col-md mb-10">
+                                                <label for="status">Status</label>
+                                                <select id="status" name="status" class="form-control custom-select">
                                                     @foreach($allStatus as $key => $status)
                                                         <option value="{{ $key }}">{{ $status }}</option>
                                                     @endforeach
                                                 </select>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
+                                                <small class="form-text text-muted">*Required</small>
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="col-md">
-                                                <label>Price</label>
-                                                <input type="number" class="normal" name="price" min="1000" step="1000" value="1000" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
+                                            <div class="col-md-6 md-10">
+                                                <label for="price">Price</label>
+                                                <div class="input-group">
+                                                    <input id="price" name="price" type="number" class="form-control"  min="1000" step="1000" value="">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">VNĐ</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md">
-                                                <label>Promotion Price</label>
-                                                <input type="number" class="normal" name="promotion_price" min="1000" step="1000" value="1000" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
+
+                                            <div class="col-md-6 mb-10">
+                                                <label for="cost">Price Cost</label>
+                                                <div class="input-group">
+                                                    <input id="cost" name="cost" type="number" class="form-control" min="1000" step="1000" value="">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">VNĐ</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -124,10 +110,7 @@
                                     <div class="col-md-12 mb-10">
                                         <label>Long Description</label>
                                         <div class="tinymce-wrap">
-                                            <textarea class="tinymce" rows="3" name="long_description"></textarea>
-                                        </div>
-                                        <div class="valid-feedback">
-                                            Looks good!
+                                            <textarea name="long_description" class="tinymce" rows="3"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -139,35 +122,73 @@
                                                 <input name="images" type="file" multiple />
                                             </div>
                                         </div>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-6 mb-10">
-                                        <label>Manufacturer</label>
-                                        <input type="text" class="form-control" name="manufacturer" placeholder="Product Manufacturer">
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
+                                        <label for="supplier_id">Supplier</label>
+                                        <select id="supplier_id" name="supplier_id" class="form-control"></select>
                                     </div>
                                     <div class="col-md-6 mb-10">
-                                        <label>Amount</label>
-                                        <input type="number" class="normal" name="amount" min="0" step="1" value="0" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
+                                        <label for="brand_id">Brand</label>
+                                        <select id="brand_id" name="brand_id" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-10">
+                                        <label for="stock">Stock</label>
+                                        <input id="stock" name="stock" type="number" class="form-control" min="0" step="1" value="100">
+                                    </div>
+                                    <div class="col-md-4 mb-10">
+                                        <label for="weight">Weight</label>
+                                        <input id="weight" name="weight" type="number" class="form-control">
+                                    </div>
+                                    <div class="col-md-4 mb-10">
+                                        <label>Weight Unit</label>
+                                        <select name="weight_unit" class="form-control">
+                                            @foreach($allWeightUnit as $key => $weightUnit)
+                                                <option value="{{ $key }}">{{ $weightUnit }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3 mb-10">
+                                        <label id="length">Length</label>
+                                        <input id="length" name="length" type="number" class="form-control">
+                                    </div>
+                                    <div class="col-md-3 mb-10">
+                                        <label for="width">Width</label>
+                                        <input id="width" name="width" type="number" class="form-control">
+                                    </div>
+                                    <div class="col-md-3 mb-10">
+                                        <label for="height">Height</label>
+                                        <input id="height" name="height" type="number" class="form-control">
+                                    </div>
+                                    <div class="col-md-3 mb-10">
+                                        <label>Dimension Unit</label>
+                                        <select name="dimension_unit" class="form-control">
+                                            @foreach($allDimensionUnit as $key => $dimensionUnit)
+                                                <option value="{{ $key }}">{{ $dimensionUnit }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-10">
+                                        <label for="minimum">Minimum</label>
+                                        <input id="minimum" name="minimum" type="number" class="form-control" min="1" step="1" value="1">
+                                        <small class="form-text text-muted">Minimum quantity in one order</small>
+                                    </div>
+                                    <div class="col-md-6 mb-10">
+                                        <label for="date_available">Date available</label>
+                                        <input id="date_available" name="date_available" type="text" class="form-control" value="">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-12 mb-10">
                                         <label>Tags</label>
-                                        <select id="input_tags" name="tags[]" class="form-control" multiple="multiple">
-                                        </select>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
+                                        <select id="input_tags" name="tags[]" class="form-control" multiple="multiple"></select>
                                     </div>
                                 </div>
                                 <div class="float-right">
@@ -189,6 +210,9 @@
 @section('css')
     <!-- select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Daterangepicker CSS -->
+    <link href="{{ asset('backend/vendors/daterangepicker/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Bootstrap Dropzone CSS -->
     <link href="{{ asset('backend/vendors/dropzone/dist/dropzone.css') }}" rel="stylesheet" type="text/css"/>
@@ -217,6 +241,10 @@
 
     <!-- Dropify JavaScript -->
     <script src="{{ asset('backend/vendors/dropify/dist/js/dropify.min.js') }}"></script>
+
+    <!-- Daterangepicker JavaScript -->
+    <script src="{{ asset('backend/vendors/moment/min/moment.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/daterangepicker/daterangepicker.js') }}"></script>
 
     <!-- Form Flie Upload Data JavaScript -->
     <script>
@@ -271,4 +299,18 @@
     </script>
 
     <script src="{{ asset('backend/dist/js/validation-data.js') }}"></script>
+    <script>
+        $(function() {
+            "use strict";
+            $('input[name="date_available"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 2000,
+                "cancelClass": "btn-secondary",
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            });
+        });
+    </script>
 @endsection
