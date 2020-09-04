@@ -95,6 +95,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $category->children->each(function ($item) {
+           $item->parent_id = null;
+           $item->save();
+        });
+        $category->products()->detach();
         $category->delete();
 
         return redirect(route('categories.index'))->with('success', 'You have successfully deleted the category');

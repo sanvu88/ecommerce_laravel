@@ -21,7 +21,7 @@
         <div class="hk-pg-header">
             <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>List of products</h4>
             <div class="d-flex">
-                <a href="{{ route('products.create') }}" class="btn btn-outline-success"><i class="ion ion-md-add-circle-outline"></i> Create</a>
+                <a href="{{ route('products.create') }}" class="btn btn-success btn-rounded">Create</a>
             </div>
         </div>
         <!-- /Title -->
@@ -58,8 +58,8 @@
                                             <td>{{ $product->created_at }}</td>
                                             <td>{{ $product->updated_at }}</td>
                                             <td>
-                                                <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="mr-25"> <i class="icon-pencil"></i> </a>
-                                                <a href="javascript:void(0)" class="mr-25" onclick="moveToTrash({{ $index }})"> <i class="icon-trash txt-danger"></i> </a>
+                                                <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="mr-25" data-toggle="tooltip" data-placement="top" title="Edit"> <i class="icon-pencil"></i> </a>
+                                                <a href="javascript:void(0)" class="mr-25" onclick="moveToTrash({{ $index }})" data-toggle="tooltip" data-placement="top" title="Move to trash"> <i class="icon-trash txt-danger"></i> </a>
                                                 <form name="trash_{{ $index }}" action="{{ route('products.destroy', ['product' => $product]) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')

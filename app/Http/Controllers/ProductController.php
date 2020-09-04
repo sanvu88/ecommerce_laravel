@@ -153,6 +153,9 @@ class ProductController extends Controller
 
         // update thumbnail
         if ($request->hasFile('thumbnail')) {
+            if (file_exists(public_path() . $product->thumbnail)) {
+                unlink(public_path() . $product->thumbnail);
+            }
             $file = $request->thumbnail;
             $thumbnailName = 'thumbnail_' . $product->sku . '_' . time() . '.' . $file->getClientOriginalExtension();
             $thumbnailPath = 'images/product/' . $product->sku . '/thumbnail';
@@ -175,7 +178,7 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect(route('products.index'))->with('success', 'You have successfully move the product to trashed');
+        return redirect()->back()->with('success', 'You have successfully move the product to trashed');
     }
 
     /**
@@ -200,7 +203,7 @@ class ProductController extends Controller
     {
         $product = Product::onlyTrashed()->where('id', $id)->first();
         $product->restore();
-        return redirect(route('products.trashed'))->with('success', 'You have successfully restored the product');
+        return redirect()->back()->with('success', 'You have successfully restored the product');
     }
 
     /**
@@ -213,6 +216,6 @@ class ProductController extends Controller
     {
         $product = Product::onlyTrashed()->where('id', $id)->first();
         $product->forceDelete();
-        return redirect(route('products.trashed'))->with('success', 'You have successfully deleted the product');
+        return redirect()->back()->with('success', 'You have successfully deleted the product');
     }
 }

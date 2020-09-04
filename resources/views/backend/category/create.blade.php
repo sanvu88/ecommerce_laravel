@@ -29,8 +29,8 @@
                         <div class="col-sm">
                             <form class="needs-validation" novalidate action="{{ route('categories.store') }}" method="post">
                                 {{ csrf_field() }}
-                                <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="offset-2 col-md-6">
                                         <label>Name</label>
                                         <input id="name" type="text" class="form-control" name="name" placeholder="Category name" value="" required>
                                         <div class="valid-feedback">
@@ -38,8 +38,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="offset-2 col-md-6">
                                         <label>Slug</label>
                                         <input id="slug" type="text" class="form-control" name="slug" placeholder="Category slug" value="" required>
                                         <div class="valid-feedback">
@@ -47,8 +47,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="offset-2 col-md-6">
                                         <label>Parent</label>
                                         <select class="form-control custom-select" name="parent_id">
                                             <option value="" selected>--- ROOT ---</option>
@@ -56,15 +56,17 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="offset-2 col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="offset-2 col-md-6">
                                         <label>Description</label>
                                         <textarea class="form-control" rows="3" name="description" placeholder="Write some description about the category"></textarea>
                                     </div>
                                 </div>
-                                <div class="offset-2">
-                                    <button class="btn btn-primary" type="submit">Create</button>
-                                    <a href="{{ route('categories.index') }}" class="btn btn-light">Cancel</a>
+                                <div class="form-group row">
+                                    <div class="offset-2 col-md-6">
+                                        <button class="btn btn-primary" type="submit">CREATE</button>
+                                        <a href="{{ route('categories.index') }}" class="btn btn-light">CANCEL</a>
+                                    </div>
                                 </div>
                             </form>
                         </div>

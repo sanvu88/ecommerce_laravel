@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-xl navbar-dark fixed-top hk-navbar">
     <a class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" href="javascript:void(0);"><span class="feather-icon"><i data-feather="more-vertical"></i></span></a>
     <a id="navbar_toggle_btn" class="navbar-toggle-btn nav-link-hover" href="javascript:void(0);"><span class="feather-icon"><i data-feather="menu"></i></span></a>
-    <a class="navbar-brand" href="index.html">
-        <img class="brand-img d-inline-block" src="{{ asset('backend/dist/img/logo-dark.png') }}" alt="brand" />
+    <a class="navbar-brand" href="{{ route('admin.home') }}">
+        <img class="brand-img d-inline-block" src="{{ asset('frontend/images/logo.png') }}" width="118px" alt="brand" />
     </a>
     <ul class="navbar-nav hk-navbar-content order-xl-2">
         <li class="nav-item">
@@ -114,7 +114,7 @@
                         <span class="badge badge-success badge-indicator"></span>
                     </div>
                     <div class="media-body">
-                        <span>Madelyn Shane<i class="zmdi zmdi-chevron-down"></i></span>
+                        <span>{{ Auth::user()->name }}<i class="zmdi zmdi-chevron-down"></i></span>
                     </div>
                 </div>
             </a>

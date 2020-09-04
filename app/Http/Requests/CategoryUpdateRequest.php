@@ -26,7 +26,8 @@ class CategoryUpdateRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'slug' => 'required|unique:categories,slug,' . $this->id . '|max:255',
-            'description' => 'max:255'
+            'description' => 'nullable|max:255',
+            'parent_id' => 'nullable|integer|not_in:' . $this->id,
         ];
     }
 }

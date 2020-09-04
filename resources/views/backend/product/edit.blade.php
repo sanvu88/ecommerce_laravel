@@ -27,38 +27,38 @@
 
                     <div class="row">
                         <div class="col-sm">
-                            <form class="needs-validation" novalidate action="{{ route('products.update', ['product' => $product->id]) }}" method="post">
+                            <form class="needs-validation" novalidate action="{{ route('products.update', ['product' => $product->id]) }}" method="post" enctype="multipart/form-data">
                                 @method('PUT')
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id" value="{{ $product->id }}">
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
                                         <label for="name">Name</label>
                                         <input id="name" name="name" type="text" class="form-control" placeholder="Product name" value="{{ $product->name }}" required>
                                         <small class="form-text text-muted">*Required</small>
                                     </div>
-                                    <div class="col-md-6 mb-10">
+                                    <div class="col-md-6">
                                         <label for="slug">Slug</label>
                                         <input id="slug" name="slug" type="text" class="form-control" placeholder="Product slug" value="{{ $product->slug }}" required>
                                         <small class="form-text text-muted">*Required</small>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
                                         <label for="sku">SKU</label>
                                         <input id="sku" name="sku" type="text" class="form-control" placeholder="Product SKU" value="{{ $product->sku }}" required>
                                         <small class="form-text text-muted">*Required</small>
                                     </div>
-                                    <div class="col-md-6 mb-10">
+                                    <div class="col-md-6">
                                         <label for="categories">Category</label>
                                         <select id="categories" name="categories[]" class="select2" multiple="multiple">
                                             @include('backend.includes.categories_options', ['categories' => $categories, 'dash' => '', 'selected' => $product->categories()->pluck('id')->toArray(), 'type' => 'multiple'])
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-7 mb-10">
-                                        <div class="form-row">
+                                <div class="form-group row">
+                                    <div class="col-md-7">
+                                        <div class="form-group row">
                                             <div class="col-md">
                                                 <label>Short Description</label>
                                                 <div class="tinymce-wrap">
@@ -67,16 +67,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-5 mb-10">
-                                        <div class="form-row">
-                                            <div class="col-md mb-10">
+                                    <div class="col-md-5">
+                                        <div class="form-group row">
+                                            <div class="col-md">
                                                 <label>Thumbnail</label>
-                                                <input type="file" name="thumbnail" class="dropify" data-default-file="{{ asset($product->thumbnail) }}" />
+                                                <input type="file" name="thumbnail" class="dropify" data-default-file="{{ asset($product->thumbnail) }}" data-max-file-size="1M" />
                                             </div>
 
                                         </div>
-                                        <div class="form-row">
-                                            <div class="col-md mb-10">
+                                        <div class="form-group row">
+                                            <div class="col-md">
                                                 <label for="status">Status</label>
                                                 <select id="status" name="status" class="form-control custom-select">
                                                     @foreach($allStatus as $key => $status)
@@ -90,8 +90,8 @@
                                                 <small class="form-text text-muted">*Required</small>
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6 mb-10">
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
                                                 <label for="price">Price</label>
                                                 <div class="input-group">
                                                     <input id="price" name="price" type="number" class="form-control" min="1000" step="1000" value="{{ $product->price }}" required>
@@ -100,7 +100,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 mb-10">
+                                            <div class="col-md-6">
                                                 <label for="cost">Price Cost</label>
                                                 <div class="input-group">
                                                     <input id="cost" name="cost" type="number" class="form-control" min="1000" step="1000" value="{{ $product->cost }}" required>
@@ -113,34 +113,34 @@
                                     </div>
                                 </div>
 
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
                                         <label>Long Description</label>
                                         <div class="tinymce-wrap">
                                             <textarea class="tinymce" rows="3" name="long_description">{{ $product->long_description }}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
                                         <label for="supplier_id">Supplier</label>
                                         <select id="supplier_id" name="supplier_id" type="text" class="form-control"></select>
                                     </div>
-                                    <div class="col-md-6 mb-10">
+                                    <div class="col-md-6">
                                         <label for="brand_id">Brand</label>
                                         <select id="brand_id" name="brand_id" class="form-control"></select>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-4">
                                         <label for="stock">Stock</label>
                                         <input id="stock" name="stock" type="number" class="form-control" min="0" step="1" value="{{ $product->stock }}">
                                     </div>
-                                    <div class="col-md-4 mb-10">
+                                    <div class="col-md-4">
                                         <label for="weight">Weight</label>
                                         <input id="weight" name="weight" type="number" class="form-control" value="{{ $product->weight }}">
                                     </div>
-                                    <div class="col-md-4 mb-10">
+                                    <div class="col-md-4">
                                         <label>Weight Unit</label>
                                         <select name="weight_unit" class="form-control">
                                             @foreach($allWeightUnit as $key => $weightUnit)
@@ -153,20 +153,20 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-3 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-3">
                                         <label id="length">Length</label>
                                         <input id="length" name="length" type="number" class="form-control" value="{{ $product->length }}">
                                     </div>
-                                    <div class="col-md-3 mb-10">
+                                    <div class="col-md-3">
                                         <label for="width">Width</label>
                                         <input id="width" name="width" type="number" class="form-control" value="{{ $product->width }}">
                                     </div>
-                                    <div class="col-md-3 mb-10">
+                                    <div class="col-md-3">
                                         <label for="height">Height</label>
                                         <input id="height" name="height" type="number" class="form-control" value="{{ $product->height }}">
                                     </div>
-                                    <div class="col-md-3 mb-10">
+                                    <div class="col-md-3">
                                         <label>Dimension Unit</label>
                                         <select name="dimension_unit" class="form-control">
                                             @foreach($allDimensionUnit as $key => $dimensionUnit)
@@ -179,19 +179,19 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
                                         <label for="minimum">Minimum</label>
                                         <input id="minimum" name="minimum" type="number" class="form-control" min="1" step="1" value="{{ $product->minimum }}">
                                         <small class="form-text text-muted">Minimum quantity in one order</small>
                                     </div>
-                                    <div class="col-md-6 mb-10">
+                                    <div class="col-md-6">
                                         <label for="date_available">Date available</label>
                                         <input id="date_available" name="date_available" type="text" class="form-control" value="{{ $product->date_available }}">
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
                                         <label>Tags</label>
                                         <select id="input_tags" name="tags[]" class="form-control" multiple="multiple">
                                             @foreach($product->tags as $tag)

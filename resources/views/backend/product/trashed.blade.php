@@ -53,8 +53,8 @@
                                             <td>{{ number_format($product->price, 0) }} VNĐ</td>
                                             <td>{{ $product->deleted_at }}</td>
                                             <td>
-                                                <a href="javascript:void(0)" class="mr-25" onclick="restore({{ $index }})"> <i class="icon" data-icon="&#xe050;"></i> </a>
-                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#delete_modal_{{ $index }}"> <i class="icon" data-icon="9"></i> </a>
+                                                <a href="javascript:void(0)" class="mr-25" onclick="restore({{ $index }})" data-toggle="tooltip" data-placement="top" title="Restore"> <i class="icon" data-icon="&#xe050;"></i> </a>
+                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#delete_modal_{{ $index }}"> <i class="icon" data-icon="9" data-toggle="tooltip" data-placement="top" title="Delete"></i> </a>
                                                 <form name="restore_{{ $index }}" action="{{ route('products.restore', ['id' => $product->id]) }}" method="post">
                                                     @csrf
                                                     @method('PUT')

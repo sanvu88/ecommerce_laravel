@@ -4,6 +4,12 @@
         <div class="navbar-nav-wrap">
             <ul class="navbar-nav flex-column">
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.home') }}">
+                        <i class="ion ion-md-analytics"></i>
+                        <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#categories_drp">
                         <i class="linea-icon linea-basic" data-icon="m"></i>
                         <span class="nav-link-text">Categories</span>
@@ -16,9 +22,6 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('categories.create') }}">Create</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Trashed</a>
                                 </li>
                             </ul>
                         </li>

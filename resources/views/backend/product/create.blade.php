@@ -29,34 +29,34 @@
                         <div class="col-sm">
                             <form class="needs-validation" novalidate action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
                                         <label for="name">Name</label>
                                         <input id="name" name="name" type="text" class="form-control" value="{{ old('name') }}" required>
                                         <small class="form-text text-muted">*Required</small>
                                     </div>
-                                    <div class="col-md-6 mb-10">
+                                    <div class="col-md-6">
                                         <label for="slug">Slug</label>
                                         <input id="slug" name="slug" type="text" class="form-control" value="{{ old('slug') }}" required>
                                         <small class="form-text text-muted">*Required</small>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
                                         <label for="sku">SKU</label>
                                         <input id="sku" type="text" class="form-control" name="sku" value="{{ old('sku') }}" required>
                                         <small class="form-text text-muted">*Required</small>
                                     </div>
-                                    <div class="col-md-6 mb-10">
+                                    <div class="col-md-6">
                                         <label for="categories">Category</label>
                                         <select id="categories" name="categories[]" class="form-control select2" multiple="multiple">
                                             @include('backend.includes.categories_options', ['categories' => $categories, 'dash' => '', 'selected' =>[], 'type' => 'multiple'])
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-7 mb-10">
-                                        <div class="form-row">
+                                <div class="form-group row">
+                                    <div class="col-md-7">
+                                        <div class="form-group row">
                                             <div class="col-md">
                                                 <label>Short Description</label>
                                                 <div class="tinymce-wrap">
@@ -65,15 +65,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-5 mb-10">
-                                        <div class="form-row">
-                                            <div class="col-md mb-10">
+                                    <div class="col-md-5">
+                                        <div class="form-group row">
+                                            <div class="col-md">
                                                 <label>Thumbnail</label>
                                                 <input name="thumbnail" type="file" class="dropify" />
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="col-md mb-10">
+                                        <div class="form-group row">
+                                            <div class="col-md">
                                                 <label for="status">Status</label>
                                                 <select id="status" name="status" class="form-control custom-select">
                                                     @foreach($allStatus as $key => $status)
@@ -83,8 +83,8 @@
                                                 <small class="form-text text-muted">*Required</small>
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6 md-10">
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
                                                 <label for="price">Price</label>
                                                 <div class="input-group">
                                                     <input id="price" name="price" type="number" class="form-control"  min="1000" step="1000" value="">
@@ -94,7 +94,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6 mb-10">
+                                            <div class="col-md-6">
                                                 <label for="cost">Price Cost</label>
                                                 <div class="input-group">
                                                     <input id="cost" name="cost" type="number" class="form-control" min="1000" step="1000" value="">
@@ -106,16 +106,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
                                         <label>Long Description</label>
                                         <div class="tinymce-wrap">
                                             <textarea name="long_description" class="tinymce" rows="3"></textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
                                         <label>Images</label>
                                         <div class="dropzone" id="remove_link">
                                             <div class="fallback">
@@ -124,26 +124,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
                                         <label for="supplier_id">Supplier</label>
                                         <select id="supplier_id" name="supplier_id" class="form-control"></select>
                                     </div>
-                                    <div class="col-md-6 mb-10">
+                                    <div class="col-md-6">
                                         <label for="brand_id">Brand</label>
                                         <select id="brand_id" name="brand_id" class="form-control"></select>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-4">
                                         <label for="stock">Stock</label>
                                         <input id="stock" name="stock" type="number" class="form-control" min="0" step="1" value="100">
                                     </div>
-                                    <div class="col-md-4 mb-10">
+                                    <div class="col-md-4">
                                         <label for="weight">Weight</label>
                                         <input id="weight" name="weight" type="number" class="form-control">
                                     </div>
-                                    <div class="col-md-4 mb-10">
+                                    <div class="col-md-4">
                                         <label>Weight Unit</label>
                                         <select name="weight_unit" class="form-control">
                                             @foreach($allWeightUnit as $key => $weightUnit)
@@ -152,20 +152,20 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-3 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-3">
                                         <label id="length">Length</label>
                                         <input id="length" name="length" type="number" class="form-control">
                                     </div>
-                                    <div class="col-md-3 mb-10">
+                                    <div class="col-md-3">
                                         <label for="width">Width</label>
                                         <input id="width" name="width" type="number" class="form-control">
                                     </div>
-                                    <div class="col-md-3 mb-10">
+                                    <div class="col-md-3">
                                         <label for="height">Height</label>
                                         <input id="height" name="height" type="number" class="form-control">
                                     </div>
-                                    <div class="col-md-3 mb-10">
+                                    <div class="col-md-3">
                                         <label>Dimension Unit</label>
                                         <select name="dimension_unit" class="form-control">
                                             @foreach($allDimensionUnit as $key => $dimensionUnit)
@@ -174,26 +174,28 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
                                         <label for="minimum">Minimum</label>
                                         <input id="minimum" name="minimum" type="number" class="form-control" min="1" step="1" value="1">
                                         <small class="form-text text-muted">Minimum quantity in one order</small>
                                     </div>
-                                    <div class="col-md-6 mb-10">
+                                    <div class="col-md-6">
                                         <label for="date_available">Date available</label>
                                         <input id="date_available" name="date_available" type="text" class="form-control" value="">
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-10">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
                                         <label>Tags</label>
                                         <select id="input_tags" name="tags[]" class="form-control" multiple="multiple"></select>
                                     </div>
                                 </div>
-                                <div class="float-right">
-                                    <a href="{{ route('products.index') }}" class="btn btn-light">CANCEL</a>
-                                    <button class="btn btn-primary" type="submit">CREATE</button>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary" type="submit">CREATE</button>
+                                        <a href="{{ route('products.index') }}" class="btn btn-light">CANCEL</a>
+                                    </div>
                                 </div>
                                 <input type="file" name="images[]" multiple class="d-none">
                             </form>

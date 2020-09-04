@@ -21,7 +21,7 @@
         <div class="hk-pg-header">
             <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>List Category</h4>
             <div class="d-flex">
-                <a href="{{ route('categories.create') }}" class="btn btn-outline-success"><i class="ion ion-md-add-circle-outline"></i> Create</a>
+                <a href="{{ route('categories.create') }}" class="btn btn-success btn-rounded">Create</a>
             </div>
         </div>
         <!-- /Title -->
@@ -41,7 +41,6 @@
                                         <th>Name</th>
                                         <th>Slug</th>
                                         <th>Parent Category</th>
-                                        <th>Description</th>
                                         <th>Created at</th>
                                         <th>Updated at</th>
                                         <th>Actions</th>
@@ -54,12 +53,11 @@
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->slug }}</td>
                                             <td>{{ $category->parent_name }}</td>
-                                            <td>{{ $category->description }}</td>
-                                            <td>{{ $category->created_at }}</td>
-                                            <td>{{ $category->updated_at }}</td>
+                                            <td>{{ $category->created_at->diffForHumans() }}</td>
+                                            <td>{{ $category->updated_at->diffForHumans() }}</td>
                                             <td>
-                                                <a href="{{ route('categories.edit', ['category' => $category->id]) }}" class="mr-25"> <i class="icon-pencil"></i> </a>
-                                                <a href="#" data-toggle="modal" data-target="#delete_modal_{{ $index }}"> <i class="icon-trash txt-danger"></i> </a>
+                                                <a href="{{ route('categories.edit', ['category' => $category->id]) }}" class="mr-25" data-toggle="tooltip" data-placement="top" title="Edit"> <i class="icon-pencil"></i> </a>
+                                                <a href="#" data-toggle="modal" data-target="#delete_modal_{{ $index }}"> <i class="icon-trash txt-danger" data-toggle="tooltip" data-placement="top" title="Delete"></i> </a>
                                                 @include('backend.includes.modal_delete_confirm', ['index' => $index, 'item' => $category, 'type' => 'category'])
                                             </td>
                                         </tr>
@@ -68,18 +66,6 @@
                                         <td colspan="8" class="text-center"><h3><i class="linea-icon linea-basic" data-icon="f"></i></h3> No Data</td>
                                     @endif
                                     </tbody>
-                                    <tfoot class="thead-dark">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Slug</th>
-                                        <th>Parent Category</th>
-                                        <th>Description</th>
-                                        <th>Created at</th>
-                                        <th>Updated at</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>

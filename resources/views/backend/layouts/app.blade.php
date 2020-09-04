@@ -56,11 +56,11 @@
         <!-- Main Content -->
         <div class="hk-pg-wrapper">
             @yield('content')
-        </div>
-        <!-- /Main Content -->
 
-        <!-- Footer -->
-        @include('backend.layouts.footer')
+            <!-- Footer -->
+            @include('backend.layouts.footer')
+            <!-- /Main Content -->
+        </div>
         <!-- /Main Content -->
     </div>
     <!-- /HK Wrapper -->

@@ -30,7 +30,7 @@ class ProductUpdateRequest extends FormRequest
             'price' => 'nullable|numeric',
             'cost' => 'nullable|numeric',
             'status' => 'required|numeric',
-            'thumbnail' => 'nullable|mimes:jpeg,jpg,png,gif|size:1024',
+            'thumbnail' => 'nullable|image|max:1024',
             'stock' => 'nullable|numeric',
             'categories.*' => 'nullable|numeric',
             'supplier_id' => 'nullable|numeric',

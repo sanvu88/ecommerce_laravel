@@ -12,12 +12,13 @@ class Category extends Model
 {
     use CategoryAttribue,
         CategoryScope,
-        CategoryRelationship,
-        SoftDeletes;
+        CategoryRelationship;
 
     protected $guarded = ['id'];
 
     protected $table = 'categories';
 
     protected $with = ['children'];
+
+    protected $dates = ['created_at', 'updated_at'];
 }
