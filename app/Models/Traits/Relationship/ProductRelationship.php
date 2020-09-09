@@ -16,7 +16,7 @@ trait ProductRelationship
 
     public function images()
     {
-        return $this->morphToMany('App\Models\Image', 'imageable');
+        return $this->morphMany('App\Models\Image', 'imageable');
     }
 
     public function promotions()

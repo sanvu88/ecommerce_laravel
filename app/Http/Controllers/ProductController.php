@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductImageStore;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Image;
@@ -77,22 +78,19 @@ class ProductController extends Controller
         // Add images
         if ($request->hasFile('images')) {
             $files = $request->images;
-            $imageIds = [];
             foreach ($files as $file) {
                 $imageName = 'image_' . $product->sku . '_' . md5(time().Str::random(10)) . '.' . $file->getClientOriginalExtension();
                 $imagePath = 'images/product/' . $product->sku . '/image';
                 $file->storeAs($imagePath, $imageName);
                 [$width, $height] = getimagesize($file);
-                $image = Image::create([
-                    'filename' => $imageName,
-                    'path' => $imagePath,
+                $image = new Image([
+                    'url' => Storage::url($imagePath . '/' .$imageName),
                     'width' => $width,
                     'height' => $height,
                     'size' => $file->getSize()
                 ]);
-                array_push($imageIds, $image->id);
+                $product->images()->save($image);
             }
-            $product->images()->sync($imageIds);
         }
 
         return redirect(route('products.index'))->with('success', 'You have successfully created a new product');
@@ -217,5 +215,58 @@ class ProductController extends Controller
         $product = Product::onlyTrashed()->where('id', $id)->first();
         $product->forceDelete();
         return redirect()->back()->with('success', 'You have successfully deleted the product');
+    }
+
+    /**
+     * Display a listing of product images
+     *
+     * @param Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editImages(Product $product)
+    {
+        return view('backend.product.edit_images')->with('product', $product->load('images'));
+    }
+
+    /**
+     * Store product images.
+     *
+     * @param Product $product
+     * @param ProductImageStore $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addImages(Product $product, ProductImageStore $request)
+    {
+        $files = $request->images;
+        foreach ($files as $file) {
+            $imageName = 'image_' . $product->sku . '_' . md5(time().Str::random(10)) . '.' . $file->getClientOriginalExtension();
+            $imagePath = 'images/product/' . $product->sku . '/image';
+            $file->storeAs($imagePath, $imageName);
+            [$width, $height] = getimagesize($file);
+            $image = new Image([
+                'url' => Storage::url($imagePath . '/' .$imageName),
+                'width' => $width,
+                'height' => $height,
+                'size' => $file->getSize()
+            ]);
+            $product->images()->save($image);
+        }
+
+        return redirect()->back()->with('success', 'You have successfully uploaded product images');
+    }
+
+    public function deleteImage(Product $product, Image $image)
+    {
+        foreach ($product->images as $item) {
+            if ($item->id == $image->id) {
+                $image->imageable()->detach();
+                if (file_exists(public_path() . $image->url)) {
+                    unlink(public_path() . $image->url);
+                }
+                $image->delete();
+            }
+        }
+
+        return redirect()->back()->with('success', 'You have successfully deleted product image');
     }
 }

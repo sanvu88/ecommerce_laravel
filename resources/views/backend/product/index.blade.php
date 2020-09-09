@@ -59,6 +59,7 @@
                                             <td>{{ $product->updated_at }}</td>
                                             <td>
                                                 <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="mr-25" data-toggle="tooltip" data-placement="top" title="Edit"> <i class="icon-pencil"></i> </a>
+                                                <a href="{{ route('products.editImages', ['product' => $product->id]) }}" class="mr-25" data-toggle="tooltip" data-placement="top" title="Images"> <i class="icon" data-icon="&#xe032;"></i> </a>
                                                 <a href="javascript:void(0)" class="mr-25" onclick="moveToTrash({{ $index }})" data-toggle="tooltip" data-placement="top" title="Move to trash"> <i class="icon-trash txt-danger"></i> </a>
                                                 <form name="trash_{{ $index }}" action="{{ route('products.destroy', ['product' => $product]) }}" method="post">
                                                     @csrf

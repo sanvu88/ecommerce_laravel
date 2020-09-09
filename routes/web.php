@@ -37,6 +37,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/products/trashed', 'ProductController@trashed')->name('products.trashed');
     Route::put('/products/{id}/restore', 'ProductController@restore')->name('products.restore');
     Route::delete('/products/{id}/forceDelete', 'ProductController@forceDelete')->name('products.forceDelete');
+    Route::get('/products/{product}/images', 'ProductController@editImages')->name('products.editImages');
+    Route::post('/products/{product}/images', 'ProductController@addImages')->name('products.addImages');
+    Route::delete('/products/{product}/images/{image}', 'ProductController@deleteImage')->name('products.deleteImage');
     Route::resource('products', 'ProductController');
     Route::resource('orders', 'OrderController');
 });

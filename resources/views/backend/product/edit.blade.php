@@ -222,9 +222,6 @@
     <!-- Daterangepicker CSS -->
     <link href="{{ asset('backend/vendors/daterangepicker/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
 
-    <!-- Bootstrap Dropzone CSS -->
-    <link href="{{ asset('backend/vendors/dropzone/dist/dropzone.css') }}" rel="stylesheet" type="text/css"/>
-
     <!-- Bootstrap Dropify CSS -->
     <link href="{{ asset('backend/vendors/dropify/dist/css/dropify.min.css') }}" rel="stylesheet" type="text/css"/>
 @endsection

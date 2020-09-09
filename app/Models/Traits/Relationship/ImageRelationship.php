@@ -6,8 +6,8 @@ namespace App\Models\Traits\Relationship;
 
 trait ImageRelationship
 {
-    public function product()
+    public function imageable()
     {
-        return $this->morphedByMany('App\Models\Product', 'imageable');
+        return $this->morphTo();
     }
 }

@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete {{ $item->name }}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Delete this item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -22,6 +22,13 @@
                 @endif
                 @if($type == 'product')
                     <form action="{{ route('products.forceDelete', ['id' => $item->id]) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                @endif
+                @if($type == 'image')
+                    <form action="{{ route('products.deleteImage', ['product' => $item->imageable, 'image' => $item]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
