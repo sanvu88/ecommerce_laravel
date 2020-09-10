@@ -43,6 +43,7 @@
     },
     "autoload": {
         "files": [
+            "app/Helpers/general.php",
             "app/Helpers/simple_html_dom.php"
         ],
         "psr-4": {

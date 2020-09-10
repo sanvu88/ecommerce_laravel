@@ -51,7 +51,7 @@
                                             <td><img src="{{ $product->thumbnail }}" class="img-fluid img-thumbnail" height="100" width="100" alt="img"></td>
                                             <td>{{ $product->status_name }}</td>
                                             <td>{{ number_format($product->price, 0) }} VNĐ</td>
-                                            <td>{{ $product->deleted_at }}</td>
+                                            <td>{{ $product->deleted_at->diffForHumans() }}</td>
                                             <td>
                                                 <a href="javascript:void(0)" class="mr-25" onclick="restore({{ $index }})" data-toggle="tooltip" data-placement="top" title="Restore"> <i class="icon" data-icon="&#xe050;"></i> </a>
                                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#delete_modal_{{ $index }}"> <i class="icon" data-icon="9" data-toggle="tooltip" data-placement="top" title="Delete"></i> </a>

@@ -22,7 +22,10 @@ return [
             4 => 'Service',
         ],
     ],
-    'pagination' => 12,
+    'pagination' => [
+        'backend' => 10,
+        'frontend' => 12,
+    ],
     'coupon_type' => [
         'expired' => 0,
         'fixed' => 1,
@@ -31,6 +34,9 @@ return [
     'order' => [
         'status' => [
             'ordered' => 1,
-        ]
-    ]
+        ],
+    ],
+    'cart' => [
+        'shipping' => 20000,
+    ],
 ];

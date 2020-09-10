@@ -30,7 +30,7 @@ class CheckoutRequest extends FormRequest
             'ward_code' => 'required|numeric',
             'district_code' => 'required|numeric',
             'province_code' => 'required|numeric',
-            'phone_number' => 'required|digits_between:10,12',
+            'phone' => 'required|digits_between:10,12',
             'note' => 'max:255'
         ];
     }

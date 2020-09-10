@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
-use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of categories.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     * @return View
      */
     public function index()
     {
@@ -24,7 +25,7 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     * @return View
      */
     public function create()
     {
@@ -34,23 +35,22 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new category.
      *
      * @param CategoryStoreRequest $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse
      */
     public function store(CategoryStoreRequest $request)
     {
         Category::create($request->all());
 
-        return redirect(route('categories.index'))->with('success', 'You have successfully created a new category');
+        return redirect()->route('categories.index')->with('success', 'You have successfully created a new category');
     }
 
     /**
-     * Display the specified resource.
+     * Display the product.
      *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
      */
     public function show(Category $category)
     {
@@ -58,10 +58,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the product.
      *
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     * @param Category $category
+     * @return View
      */
     public function edit(Category $category)
     {
@@ -77,21 +77,21 @@ class CategoryController extends Controller
      *
      * @param CategoryUpdateRequest $request
      * @param Category $category
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse
      */
     public function update(CategoryUpdateRequest $request, Category $category)
     {
         $category->update($request->all());
 
-        return redirect(route('categories.index'))->with('success', 'You have successfully updated the category');
+        return redirect()->route('categories.index')->with('success', 'You have successfully updated the category');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Category $category
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(Category $category)
     {
@@ -102,6 +102,6 @@ class CategoryController extends Controller
         $category->products()->detach();
         $category->delete();
 
-        return redirect(route('categories.index'))->with('success', 'You have successfully deleted the category');
+        return redirect()->back()->with('success', 'You have successfully deleted the category');
     }
 }

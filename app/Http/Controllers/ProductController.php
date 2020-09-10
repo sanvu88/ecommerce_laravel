@@ -6,30 +6,32 @@ use App\Http\Requests\ProductImageStore;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Image;
-use App\Models\Category;
 use App\Models\Product;
 use App\Models\Tag;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of products.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return View
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::paginate(config('common.backend.pagination'));
         return view('backend.product.index')->with('products', $products);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new product.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return View
      */
     public function create()
     {
@@ -44,10 +46,10 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new product.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param ProductStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(ProductStoreRequest $request)
     {
@@ -67,9 +69,9 @@ class ProductController extends Controller
 
         // Add thumbnail
         if ($request->hasFile('thumbnail')) {
-            $file = $request->thumbnail;
-            $thumbnailName = 'thumbnail_' . $product->sku . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $thumbnailPath = 'images/product/' . $product->sku . '/thumbnail';
+            $file = $request->get('thumbnail');
+            $thumbnailName = generateProductImageName($product->sku, $file->getClientOriginalExtension());
+            $thumbnailPath = generateProductImagePath($product->sku);
             $file->storeAs($thumbnailPath, $thumbnailName);
             $product->thumbnail = Storage::url($thumbnailPath . '/' .$thumbnailName);
             $product->save();
@@ -77,10 +79,10 @@ class ProductController extends Controller
 
         // Add images
         if ($request->hasFile('images')) {
-            $files = $request->images;
+            $files = $request->get('images');
             foreach ($files as $file) {
-                $imageName = 'image_' . $product->sku . '_' . md5(time().Str::random(10)) . '.' . $file->getClientOriginalExtension();
-                $imagePath = 'images/product/' . $product->sku . '/image';
+                $imageName = generateProductImageName($product->sku, $file->getClientOriginalExtension(), 'image');
+                $imagePath = generateProductImagePath($product->sku, 'image');
                 $file->storeAs($imagePath, $imageName);
                 [$width, $height] = getimagesize($file);
                 $image = new Image([
@@ -93,14 +95,13 @@ class ProductController extends Controller
             }
         }
 
-        return redirect(route('products.index'))->with('success', 'You have successfully created a new product');
+        return redirect()->route('products.index')->with('success', 'You have successfully created a new product');
     }
 
     /**
-     * Display the specified resource.
+     * Display the product.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param Product $product
      */
     public function show(Product $product)
     {
@@ -108,10 +109,10 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the product.
      *
-     * @param \App\Models\Product $product
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Product $product
+     * @return View
      */
     public function edit(Product $product)
     {
@@ -127,11 +128,11 @@ class ProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the product.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Product $product
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param ProductUpdateRequest $request
+     * @param Product $product
+     * @return RedirectResponse
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
@@ -155,22 +156,22 @@ class ProductController extends Controller
                 unlink(public_path() . $product->thumbnail);
             }
             $file = $request->thumbnail;
-            $thumbnailName = 'thumbnail_' . $product->sku . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $thumbnailPath = 'images/product/' . $product->sku . '/thumbnail';
+            $thumbnailName = generateProductImageName($product->sku, $file->getClientOriginalExtension());
+            $thumbnailPath = generateProductImagePath($product->sku);
             $file->storeAs($thumbnailPath, $thumbnailName);
             $product->thumbnail = Storage::url($thumbnailPath . '/' .$thumbnailName);
             $product->save();
         }
 
-        return redirect(route('products.index'))->with('success', 'You have successfully updated the product');
+        return redirect()->route('products.index')->with('success', 'You have successfully updated the product');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the product to trash.
      *
-     * @param \App\Models\Product $product
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Exception
+     * @param Product $product
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(Product $product)
     {
@@ -182,20 +183,20 @@ class ProductController extends Controller
     /**
      * Display a listing of the trashed products.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return View
      */
     public function trashed()
     {
-        $products = Product::onlyTrashed()->paginate(10);
+        $products = Product::onlyTrashed()->paginate(config('common.backend.pagination'));
         return view('backend.product.trashed')->with('products', $products);
     }
 
     /**
-     * Restored a trashed product
+     * Restored a trashed product.
      *
      * @param Request $request
-     * @param Product $product
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param int $id
+     * @return RedirectResponse
      */
     public function restore(Request $request, $id)
     {
@@ -205,23 +206,29 @@ class ProductController extends Controller
     }
 
     /**
-     * Force delete a trashed product
+     * Force delete a trashed product.
      *
-     * @param Product $product
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param int $id
+     * @return RedirectResponse
      */
     public function forceDelete($id)
     {
         $product = Product::onlyTrashed()->where('id', $id)->first();
+        foreach ($product->images as $image) {
+            if (file_exists(public_path() . $image->url)) {
+                unlink(public_path() . $image->url);
+            }
+            $image->delete();
+        }
         $product->forceDelete();
         return redirect()->back()->with('success', 'You have successfully deleted the product');
     }
 
     /**
-     * Display a listing of product images
+     * Display a listing of product images.
      *
      * @param Product $product
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return View
      */
     public function editImages(Product $product)
     {
@@ -233,14 +240,14 @@ class ProductController extends Controller
      *
      * @param Product $product
      * @param ProductImageStore $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function addImages(Product $product, ProductImageStore $request)
     {
         $files = $request->images;
         foreach ($files as $file) {
-            $imageName = 'image_' . $product->sku . '_' . md5(time().Str::random(10)) . '.' . $file->getClientOriginalExtension();
-            $imagePath = 'images/product/' . $product->sku . '/image';
+            $imageName = generateProductImageName($product->sku, $file->getClientOriginalExtension(), 'image');
+            $imagePath = generateProductImagePath($product->sku, 'image');
             $file->storeAs($imagePath, $imageName);
             [$width, $height] = getimagesize($file);
             $image = new Image([
@@ -255,11 +262,18 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'You have successfully uploaded product images');
     }
 
+    /**
+     * Delete a product image.
+     *
+     * @param Product $product
+     * @param Image $image
+     * @return RedirectResponse
+     * @throws Exception
+     */
     public function deleteImage(Product $product, Image $image)
     {
         foreach ($product->images as $item) {
             if ($item->id == $image->id) {
-                $image->imageable()->detach();
                 if (file_exists(public_path() . $image->url)) {
                     unlink(public_path() . $image->url);
                 }

@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function showCategory(Request $request, $slug)
     {
         $category = Category::with('parent')->where('slug', '=', $slug)->first();
-        $products = $category->products()->paginate(config('common.pagination'));
+        $products = $category->products()->paginate(config('common.frontend.pagination'));
         return view('frontend.category')
             ->with('category', $category)
             ->with('products', $products);
@@ -60,7 +60,7 @@ class HomeController extends Controller
     {
         $keyword = $request->get('query');
 
-        $products = Product::search($keyword)->paginate(config('common.pagination'));
+        $products = Product::search($keyword)->paginate(config('common.frontend.pagination'));
 
         return view('frontend.search')->with('products', $products);
     }

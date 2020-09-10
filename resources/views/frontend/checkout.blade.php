@@ -24,7 +24,7 @@
                                     <input type="text" name="email" placeholder="Email" class="">
                                 </div>
                                 <div class="form-group w35">
-                                    <input type="text" name="phone_number" placeholder="*Số điện thoại" class="">
+                                    <input type="text" name="phone" placeholder="*Số điện thoại" class="">
                                 </div>
                             </div>
                             <div class="form-group">

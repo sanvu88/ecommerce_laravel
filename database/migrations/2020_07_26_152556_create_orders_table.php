@@ -36,8 +36,8 @@ class CreateOrdersTable extends Migration
             $table->integer('balance')->default(0);
             $table->string('currency')->default('VND');
             $table->double('exchange_rate', 8, 2)->nullable();
-            $table->string('payment_method_id')->default(1);
-            $table->string('shipping_method_id')->default(1);
+            $table->integer('payment_method_id')->default(1);
+            $table->integer('shipping_method_id')->default(1);
             $table->tinyInteger('status')->default(1);
             $table->string('note')->nullable();
             $table->softDeletes();

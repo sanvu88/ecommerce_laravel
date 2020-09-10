@@ -55,8 +55,8 @@
                                             <td><img src="{{ $product->thumbnail }}" class="img-fluid img-thumbnail" height="100" width="100" alt="img"></td>
                                             <td>{{ $product->status_name }}</td>
                                             <td>{{ number_format($product->price, 0) }} VNĐ</td>
-                                            <td>{{ $product->created_at }}</td>
-                                            <td>{{ $product->updated_at }}</td>
+                                            <td>{{ $product->created_at->diffForHumans() }}</td>
+                                            <td>{{ $product->updated_at->diffForHumans() }}</td>
                                             <td>
                                                 <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="mr-25" data-toggle="tooltip" data-placement="top" title="Edit"> <i class="icon-pencil"></i> </a>
                                                 <a href="{{ route('products.editImages', ['product' => $product->id]) }}" class="mr-25" data-toggle="tooltip" data-placement="top" title="Images"> <i class="icon" data-icon="&#xe032;"></i> </a>

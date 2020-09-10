@@ -47,7 +47,7 @@
 @section('script')
     <script>
         $('.btn-plus').click(function () {
-            if ($('#qty').val() < {{ $product->amount }}) {
+            if ($('#qty').val() < {{ $product->stock }}) {
                 $('#qty').val(parseInt($('#qty').val()) + 1);
             }
         });

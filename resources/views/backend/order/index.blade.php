@@ -66,19 +66,6 @@
                                         <td colspan="8" class="text-center"><h3><i class="linea-icon linea-basic" data-icon="f"></i></h3> No Data</td>
                                     @endif
                                     </tbody>
-                                    <tfoot class="thead-dark">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Email</th>
-                                        <th>Subtotal</th>
-                                        <th>Shipping</th>
-                                        <th>Discount</th>
-                                        <th>PM method</th>
-                                        <th>Status</th>
-                                        <th>Created at</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>

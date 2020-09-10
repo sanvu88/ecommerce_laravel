@@ -57,9 +57,10 @@ class CartController extends Controller
             'name' => $product->name,
             'qty' => $qty,
             'price' => $product->price,
-            'weight' => 500,
+            'weight' => 0,
             'options' => [
-                'img' => asset($product->thumbnail)
+                'img' => asset($product->thumbnail),
+                'sku' => $product->sku,
             ]
         ]);
 
@@ -108,16 +109,11 @@ class CartController extends Controller
     {
         $cartInfo = Cart::content();
 
-        $customer = Customer::where('phone_number', $request->phone_number)->first();
-
-        if (!$customer instanceof Customer) {
-            $customer = Customer::create($request->only(['fullname', 'email', 'address', 'phone_number']));
-        }
-
         $coupon = Coupon::where('code', session()->get('coupon')['name'])->first();
+        $discount = isset($coupon) ? $coupon->discount(Cart::subtotal()) : 0;
 
         $courier = Courier::where('province_code', $request->province_code)->where('district_code', $request->district_code)->first();
-        $tax = $courier->amount ?? 20000;
+        $shipping = $courier->amount ?? config('common.cart.shipping');
 
         $ward = Ward::where('code', $request->ward_code)->first()->name_with_type;
         $district = District::where('code', $request->district_code)->first()->name_with_type;
@@ -125,14 +121,17 @@ class CartController extends Controller
         $address = "{$request->house_number}, {$ward}, {$district}, {$province}";
 
         $order = Order::create([
-            'customer_id' => $customer->id,
+            'fullname' => $request->get('fullname'),
             'address' => $address,
+            'phone' => $request->get('phone'),
+            'email' => $request->get('email'),
             'coupon_id' => $coupon->id ?? null,
-            'discount' =>  $coupon->discount(Cart::subtotal()) ?? 0,
-            'tax' => $tax,
+            'discount' =>  $discount,
+            'shipping' => $shipping,
+            'subtotal' => str_replace(',', '', Cart::subtotal()),
             'total' => str_replace(',', '', Cart::total()),
-            'date' => date('Y-m-d H:i:s'),
-            'payment_way' => $request->payment,
+            'balance' => str_replace(',', '', Cart::total()),
+            'payment_method_id' => $request->payment,
             'status' => config('common.order.status.ordered'),
             'note' => $request->get('note'),
         ]);
@@ -142,8 +141,11 @@ class CartController extends Controller
                 $orderDetail = OrderDetail::create([
                     'order_id' => $order->id,
                     'product_id' => $item->id,
+                    'name' => $item->name,
                     'quantity' => $item->qty,
-                    'price' => $item->price * $item->qty
+                    'sku' => $item->options['sku'],
+                    'price' => $item->price,
+                    'total_price' => $item->price * $item->qty
                 ]);
             }
         }
@@ -151,7 +153,7 @@ class CartController extends Controller
         Cart::destroy();
         session()->forget('coupon');
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'You have successfully ordered');
     }
 
     public function applyCoupon(Request $request)

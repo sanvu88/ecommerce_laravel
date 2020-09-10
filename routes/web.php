@@ -26,7 +26,7 @@ Route::group(['prefix' => 'cart'], function () {
     Route::delete('/applyCoupon', 'CartController@removeCoupon')->name('cart.removeCoupon');
     Route::post('/getListDistrict', 'CartController@getListDistrict')->name('cart.getListDistrict');
     Route::post('/getListWard', 'CartController@getListWard')->name('cart.getListWard');
-    Route::post('/updateTax', 'CartController@getTax')->name('cart.updateTax');
+    Route::post('/updateTax', 'CartController@updateTax')->name('cart.updateTax');
 });
 
 Auth::routes();
