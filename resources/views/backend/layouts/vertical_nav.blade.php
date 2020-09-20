@@ -11,7 +11,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#categories_drp">
-                        <i class="linea-icon linea-basic" data-icon="m"></i>
+                        <i class="icon" data-icon="`"></i>
                         <span class="nav-link-text">Categories</span>
                     </a>
                     <ul id="categories_drp" class="nav flex-column collapse collapse-level-1">
@@ -29,7 +29,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#products_drp">
-                        <i class="linea-icon linea-basic" data-icon="t"></i>
+                        <i class="icon" data-icon="p"></i>
                         <span class="nav-link-text">Products</span>
                     </a>
                     <ul id="products_drp" class="nav flex-column collapse collapse-level-1">
@@ -50,7 +50,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#orders_drp">
-                        <i class="linea-icon linea-basic" data-icon="t"></i>
+                        <i class="icon" data-icon="Q"></i>
                         <span class="nav-link-text">Orders</span>
                     </a>
                     <ul id="orders_drp" class="nav flex-column collapse collapse-level-1">
@@ -65,6 +65,24 @@
 {{--                                <li class="nav-item">--}}
 {{--                                    <a class="nav-link" href="#">Trashed</a>--}}
 {{--                                </li>--}}
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#coupons_drp">
+                        <i class="icon" data-icon="P"></i>
+                        <span class="nav-link-text">Coupons</span>
+                    </a>
+                    <ul id="coupons_drp" class="nav flex-column collapse collapse-level-1">
+                        <li class="nav-item">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('coupons.index') }}">Listing</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('coupons.create') }}">Create</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

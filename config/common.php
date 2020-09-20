@@ -26,8 +26,17 @@ return [
         'backend' => 10,
         'frontend' => 12,
     ],
+    'coupon' => [
+        'type' => [
+            'fixed' => 1,
+            'percent' => 2,
+        ],
+        'status' => [
+            1 => 'active',
+            0 => 'unActive'
+        ],
+    ],
     'coupon_type' => [
-        'expired' => 0,
         'fixed' => 1,
         'percent' => 2,
     ],

@@ -34,6 +34,13 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 @endif
+                @if($type == 'coupon')
+                    <form action="{{ route('coupons.destroy', ['coupon' => $item]) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

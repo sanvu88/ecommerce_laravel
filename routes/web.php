@@ -42,4 +42,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/products/{product}/images/{image}', 'ProductController@deleteImage')->name('products.deleteImage');
     Route::resource('products', 'ProductController');
     Route::resource('orders', 'OrderController');
+    Route::resource('coupons', 'CouponController');
 });

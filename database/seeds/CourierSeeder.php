@@ -22,7 +22,7 @@ class CourierSeeder extends Seeder
                             'province_code' => $province->code,
                             'district_code' => $district->code,
                             'weight' => 20,
-                            'amount' => (float) 2000,
+                            'amount' => config('common.cart.shipping'),
                         ]);
                     });
                 });
