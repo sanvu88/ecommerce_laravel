@@ -79,12 +79,8 @@
                                             <div class="col-md">
                                                 <label for="status">Status</label>
                                                 <select id="status" name="status" class="form-control custom-select">
-                                                    @foreach($allStatus as $key => $status)
-                                                        @if($key == $product->status)
-                                                            <option value="{{ $key }}" selected>{{ $status }}</option>
-                                                        @else
-                                                            <option value="{{ $key }}">{{ $status }}</option>
-                                                        @endif
+                                                    @foreach($allStatus as $key => $value)
+                                                        <option value="{{ $value }}" @if($value == $product->status) selected @endif>{{ $key }}</option>
                                                     @endforeach
                                                 </select>
                                                 <small class="form-text text-muted">*Required</small>
@@ -143,12 +139,8 @@
                                     <div class="col-md-4">
                                         <label>Weight Unit</label>
                                         <select name="weight_unit" class="form-control">
-                                            @foreach($allWeightUnit as $key => $weightUnit)
-                                                @if($key == $product->weight_unit)
-                                                    <option value="{{ $key }}" selected>{{ $weightUnit }}</option>
-                                                @else
-                                                    <option value="{{ $key }}">{{ $weightUnit }}</option>
-                                                @endif
+                                            @foreach($allWeightUnit as $key => $value)
+                                                <option value="{{ $value }}" @if($value == $product->weight_unit) selected @endif>{{ $key }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -169,12 +161,8 @@
                                     <div class="col-md-3">
                                         <label>Dimension Unit</label>
                                         <select name="dimension_unit" class="form-control">
-                                            @foreach($allDimensionUnit as $key => $dimensionUnit)
-                                                @if($key == $product->dimension_unit)
-                                                    <option value="{{ $key }}" selected>{{ $dimensionUnit }}</option>
-                                                @else
-                                                    <option value="{{ $key }}">{{ $dimensionUnit }}</option>
-                                                @endif
+                                            @foreach($allDimensionUnit as $key => $value)
+                                                <option value="{{ $value }}" @if($value == $product->dimension_unit) selected @endif>{{ $key }}</option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -14,9 +14,9 @@ trait CouponMethod
     public function discount($subtotal)
     {
         $subtotal = (float) str_replace(',', '', $subtotal);
-        if ($this->type == config('common.coupon_type.fixed')) {
+        if ($this->type == config('common.coupon.type.fixed')) {
             return $this->value;
-        } elseif ($this->type == config('common.coupon_type.percent')) {
+        } elseif ($this->type == config('common.coupon.type.percent')) {
             return round(($this->value/100) * $subtotal);
         }
     }

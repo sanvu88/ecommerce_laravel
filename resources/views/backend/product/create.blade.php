@@ -76,8 +76,8 @@
                                             <div class="col-md">
                                                 <label for="status">Status</label>
                                                 <select id="status" name="status" class="form-control custom-select">
-                                                    @foreach($allStatus as $key => $status)
-                                                        <option value="{{ $key }}">{{ $status }}</option>
+                                                    @foreach($allStatus as $key => $value)
+                                                        <option value="{{ $value }}">{{ $key }}</option>
                                                     @endforeach
                                                 </select>
                                                 <small class="form-text text-muted">*Required</small>
@@ -146,8 +146,8 @@
                                     <div class="col-md-4">
                                         <label>Weight Unit</label>
                                         <select name="weight_unit" class="form-control">
-                                            @foreach($allWeightUnit as $key => $weightUnit)
-                                                <option value="{{ $key }}">{{ $weightUnit }}</option>
+                                            @foreach($allWeightUnit as $key => $value)
+                                                <option value="{{ $value }}">{{ $key }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -168,8 +168,8 @@
                                     <div class="col-md-3">
                                         <label>Dimension Unit</label>
                                         <select name="dimension_unit" class="form-control">
-                                            @foreach($allDimensionUnit as $key => $dimensionUnit)
-                                                <option value="{{ $key }}">{{ $dimensionUnit }}</option>
+                                            @foreach($allDimensionUnit as $key => $value)
+                                                <option value="{{ $value }}">{{ $key }}</option>
                                             @endforeach
                                         </select>
                                     </div>

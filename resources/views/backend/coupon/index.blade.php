@@ -39,7 +39,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Code</th>
-                                        <th>Type</th>
                                         <th>Value</th>
                                         <th>Status</th>
                                         <th>Created at</th>
@@ -52,15 +51,8 @@
                                         <tr>
                                             <td>{{ $coupon->id }}</td>
                                             <td>{{ $coupon->code }}</td>
-                                            <td>
-                                                @if($coupon->type == 1)
-                                                    Fixed
-                                                @else
-                                                    Percent
-                                                @endif
-                                            </td>
-                                            <td>{{ $coupon->value }}</td>
-                                            <td>{{ $coupon->status }}</td>
+                                            <td>{{ $coupon->value_label }}</td>
+                                            <td>{!! $coupon->status_label !!}</td>
                                             <td>{{ $coupon->created_at->diffForHumans() }}</td>
                                             <td>{{ $coupon->updated_at->diffForHumans() }}</td>
                                             <td>

@@ -53,7 +53,7 @@
                                             <td>{{ $product->id }}</td>
                                             <td>{{ $product->name }}</td>
                                             <td><img src="{{ $product->thumbnail }}" class="img-fluid img-thumbnail" height="100" width="100" alt="img"></td>
-                                            <td>{{ $product->status_name }}</td>
+                                            <td>{!! $product->status_label !!}</td>
                                             <td>{{ number_format($product->price, 0) }} VNĐ</td>
                                             <td>{{ $product->created_at->diffForHumans() }}</td>
                                             <td>{{ $product->updated_at->diffForHumans() }}</td>

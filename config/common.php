@@ -3,23 +3,23 @@
 return [
     'product' => [
         'status' => [
-            1 => 'Còn hàng',
-            0 => 'Hết hàng',
+            'active' => 1,
+            'unActive' => 0,
         ],
         'weight_unit' => [
-            1 => 'Gram',
-            2 => 'Kilogram',
+            'gram' => 1,
+            'kilogram' => 2,
         ],
         'dimension_unit' => [
-            1 => 'Millimeter',
-            2 => 'Centimeter',
-            3 => 'Meter',
+            'millimeter' => 1,
+            'centimeter' => 2,
+            'meter' => 3,
         ],
         'virtual' => [
-            1 => 'Physical',
-            2 => 'Download',
-            3 => 'Only view',
-            4 => 'Service',
+            'physical' => 1,
+            'download' => 2,
+            'only_view' => 3,
+            'service' => 4,
         ],
     ],
     'pagination' => [
@@ -32,13 +32,9 @@ return [
             'percent' => 2,
         ],
         'status' => [
-            1 => 'active',
-            0 => 'unActive'
+            'active' => 1,
+            'unActive' => 0,
         ],
-    ],
-    'coupon_type' => [
-        'fixed' => 1,
-        'percent' => 2,
     ],
     'order' => [
         'status' => [

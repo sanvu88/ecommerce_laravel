@@ -55,8 +55,8 @@
                                     <div class="offset-2 col-md-6">
                                         <label for="status">Status</label>
                                         <select id="status" type="text" class="form-control custom-select" name="status">
-                                            @foreach($allStatus as $key => $name)
-                                                <option value="{{ $key }}">{{ $name }}</option>
+                                            @foreach($allStatus as $key => $value)
+                                                <option value="{{ $value }}">{{ $key }}</option>
                                             @endforeach
                                         </select>
                                     </div>

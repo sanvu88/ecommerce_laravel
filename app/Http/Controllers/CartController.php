@@ -164,10 +164,6 @@ class CartController extends Controller
             return redirect()->route('cart.index')->withErrors('Invalid coupon code. Please try again.');
         }
 
-        if ($coupon->type == config('common.coupon_type.expired')) {
-            return redirect()->route('cart.index')->withErrors('Expired coupon code. Please try another coupon.');
-        }
-
         session()->put('coupon', [
             'name' => $coupon->code,
             'discount' => $coupon->discount(Cart::subtotal())

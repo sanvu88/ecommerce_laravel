@@ -9,9 +9,13 @@ use Illuminate\Support\Facades\Storage;
 
 trait ProductAttribute
 {
-    public function getStatusNameAttribute()
+    public function getStatusLabelAttribute()
     {
-        return config('common.product.status')[$this->status];
+        if ($this->status == config('common.product.status.active')) {
+            return '<span class="badge badge-success">Active</span>';
+        } else {
+            return '<span class="badge badge-secondary">Inactive</span>';
+        }
     }
 
     public function getCurrentPromotionAttribute()
